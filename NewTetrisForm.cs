@@ -425,9 +425,20 @@ namespace NewTetris
                     y++; // Recheck this row after shifting
                     score += 100; // Update score
                     labelScore.Text = "Score: " + score;
+
+                    // Check for level up
+                    int newLevel = (score / 500) + 1; // Increase level every 500 points
+                    if (newLevel > level)
+                    {
+                        level = newLevel;
+                        labelLevel.Text = "Level: " + level;
+                        fallSpeed = Math.Max(50, 500 - (level - 1) * 50); // Reduce fallSpeed but not below 50ms
+                        gameTimer.Interval = fallSpeed; // Apply new speed
+                    }
                 }
             }
         }
+
 
         private bool IsGameOver()
         {
