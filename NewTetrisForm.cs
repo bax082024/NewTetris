@@ -95,5 +95,24 @@ namespace NewTetris
             gamePanel.Invalidate(); // Redraw the game
         }
 
+        private bool CanMoveDown(Tetromino tetromino)
+        {
+            foreach (var block in tetromino.Blocks)
+            {
+                int newX = tetromino.Position.X + block.X;
+                int newY = tetromino.Position.Y + block.Y + 1;
+
+                if (newY >= gridHeight || (newY >= 0 && grid[newY, newX] != Color.Empty))
+                    return false;
+            }
+            return true;
+        }
+
+
+
+
+
+
+
     }
 }
