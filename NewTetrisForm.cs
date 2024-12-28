@@ -16,13 +16,21 @@ namespace NewTetris
         public NewTetrisForm()
         {
             InitializeComponent();
+
+            grid = new Color[gridHeight, gridWidth];
         }
 
         public class Tetromino
         {
+            private Point position; // Backing field for position
+            public Point Position
+            {
+                get => position;
+                set => position = value; // Allow mutation
+            }
+
             public Point[] Blocks { get; private set; } // Array of points representing blocks
             public Color Color { get; private set; } // Color of the Tetromino
-            public Point Position { get; set; } // Top-left position of the Tetromino
 
             public Tetromino(Point[] blocks, Color color)
             {
@@ -31,9 +39,9 @@ namespace NewTetris
                 Position = new Point(0, 0);
             }
 
-            public void MoveLeft() => Position.X--;
-            public void MoveRight() => Position.X++;
-            public void MoveDown() => Position.Y++;
+            public void MoveLeft() => Position = new Point(Position.X - 1, Position.Y);
+            public void MoveRight() => Position = new Point(Position.X + 1, Position.Y);
+            public void MoveDown() => Position = new Point(Position.X, Position.Y + 1);
             public void Rotate()
             {
                 for (int i = 0; i < Blocks.Length; i++)
@@ -44,6 +52,7 @@ namespace NewTetris
                 }
             }
         }
+
 
         private Tetromino GenerateRandomTetromino()
         {
@@ -155,6 +164,19 @@ namespace NewTetris
             }
 
             gamePanel.Invalidate(); // Redraw
+        }
+
+        private void PlaceTetrominoOnGrid(Tetromino tetromino)
+        {
+            foreach (var block in tetromino.Blocks)
+            {
+                int x = tetromino.Position.X + block.X;
+                int y = tetromino.Position.Y + block.Y;
+                if (y >= 0 && x >= 0 && x < gridWidth && y < gridHeight)
+                {
+                    grid[y, x] = tetromino.Color;
+                }
+            }
         }
 
 
