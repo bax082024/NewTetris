@@ -17,6 +17,11 @@ namespace NewTetris
         {
             InitializeComponent();
 
+            gameTimer.Tick += GameTimer_Tick;
+
+            // Properly connect Paint event
+            gamePanel.Paint += GamePanel_Paint;
+
             grid = new Color[gridHeight, gridWidth];
         }
 
@@ -72,37 +77,71 @@ namespace NewTetris
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            grid = new Color[gridHeight, gridWidth]; // Initialize the grid
+            Console.WriteLine("Start Button Clicked");
+
+            // Reset grid
+            for (int y = 0; y < gridHeight; y++)
+            {
+                for (int x = 0; x < gridWidth; x++)
+                {
+                    grid[y, x] = Color.Empty; // Clear the grid
+                }
+            }
+
+            // Reset game state
             score = 0;
             level = 1;
             fallSpeed = 500;
-            currentTetromino = GenerateRandomTetromino(); // Generate the first piece
+            labelScore.Text = "Score: " + score;
+
+            // Initialize Tetromino
+            currentTetromino = GenerateRandomTetromino();
+            currentTetromino.Position = new Point(gridWidth / 2, 0);
+
+            // Configure game timer
             gameTimer.Interval = fallSpeed;
             gameTimer.Start();
-            gamePanel.Invalidate(); // Redraw the game area
+
+            // Redraw game panel
+            gamePanel.Invalidate();
         }
+
+
+
+
+
+
+
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
+            Console.WriteLine("Game Timer Tick");
+
             if (CanMoveDown(currentTetromino))
             {
                 currentTetromino.MoveDown();
             }
             else
             {
+                Console.WriteLine("Placing Tetromino on grid");
                 PlaceTetrominoOnGrid(currentTetromino);
                 ClearCompletedRows();
+
                 currentTetromino = GenerateRandomTetromino();
+                currentTetromino.Position = new Point(gridWidth / 2, 0);
 
                 if (IsGameOver())
                 {
                     gameTimer.Stop();
                     MessageBox.Show("Game Over! Score: " + score, "Tetris");
+                    return;
                 }
             }
 
-            gamePanel.Invalidate(); // Redraw the game
+            gamePanel.Invalidate(); // Trigger Paint
         }
+
+
 
         private bool CanMoveDown(Tetromino tetromino)
         {
@@ -111,11 +150,17 @@ namespace NewTetris
                 int newX = tetromino.Position.X + block.X;
                 int newY = tetromino.Position.Y + block.Y + 1;
 
-                if (newY >= gridHeight || (newY >= 0 && grid[newY, newX] != Color.Empty))
+                // Boundary checks
+                if (newX < 0 || newX >= gridWidth || newY >= gridHeight)
+                    return false;
+
+                // Check if the grid cell is occupied
+                if (newY >= 0 && grid[newY, newX] != Color.Empty)
                     return false;
             }
             return true;
         }
+
 
         private void GamePanel_Paint(object sender, PaintEventArgs e)
         {
@@ -134,15 +179,22 @@ namespace NewTetris
                 }
             }
 
-            // Draw the current Tetromino
-            foreach (var block in currentTetromino.Blocks)
+            // Draw the current Tetromino if it's not null
+            if (currentTetromino != null)
             {
-                int drawX = (currentTetromino.Position.X + block.X) * cellSize;
-                int drawY = (currentTetromino.Position.Y + block.Y) * cellSize;
-                g.FillRectangle(new SolidBrush(currentTetromino.Color), drawX, drawY, cellSize, cellSize);
-                g.DrawRectangle(Pens.Black, drawX, drawY, cellSize, cellSize);
+                foreach (var block in currentTetromino.Blocks)
+                {
+                    int drawX = (currentTetromino.Position.X + block.X) * cellSize;
+                    int drawY = (currentTetromino.Position.Y + block.Y) * cellSize;
+                    g.FillRectangle(new SolidBrush(currentTetromino.Color), drawX, drawY, cellSize, cellSize);
+                    g.DrawRectangle(Pens.Black, drawX, drawY, cellSize, cellSize);
+                }
             }
         }
+
+
+
+
 
         private void Form_KeyDown(object sender, KeyEventArgs e)
         {
@@ -168,16 +220,20 @@ namespace NewTetris
 
         private void PlaceTetrominoOnGrid(Tetromino tetromino)
         {
+            Console.WriteLine("Placing Tetromino");
+
             foreach (var block in tetromino.Blocks)
             {
                 int x = tetromino.Position.X + block.X;
                 int y = tetromino.Position.Y + block.Y;
+
                 if (y >= 0 && x >= 0 && x < gridWidth && y < gridHeight)
                 {
                     grid[y, x] = tetromino.Color;
                 }
             }
         }
+
 
         private void ClearCompletedRows()
         {
@@ -224,6 +280,7 @@ namespace NewTetris
                 int x = currentTetromino.Position.X + block.X;
                 int y = currentTetromino.Position.Y + block.Y;
 
+                // Ensure we are within bounds
                 if (y >= 0 && grid[y, x] != Color.Empty)
                 {
                     return true;
@@ -231,6 +288,7 @@ namespace NewTetris
             }
             return false;
         }
+
 
         private bool CanMoveRight(Tetromino tetromino)
         {
@@ -277,14 +335,6 @@ namespace NewTetris
             return true;
         }
 
-
-
-
-
-
-
-
-
-
+        
     }
 }

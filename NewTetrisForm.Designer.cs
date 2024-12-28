@@ -93,6 +93,7 @@
             gamePanel.Name = "gamePanel";
             gamePanel.Size = new Size(458, 535);
             gamePanel.TabIndex = 0;
+      
             // 
             // NewTetrisForm
             // 
