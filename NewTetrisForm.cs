@@ -179,6 +179,45 @@ namespace NewTetris
             }
         }
 
+        private void ClearCompletedRows()
+        {
+            for (int y = gridHeight - 1; y >= 0; y--)
+            {
+                bool isComplete = true;
+                for (int x = 0; x < gridWidth; x++)
+                {
+                    if (grid[y, x] == Color.Empty)
+                    {
+                        isComplete = false;
+                        break;
+                    }
+                }
+
+                if (isComplete)
+                {
+                    // Shift all rows above down
+                    for (int row = y; row > 0; row--)
+                    {
+                        for (int col = 0; col < gridWidth; col++)
+                        {
+                            grid[row, col] = grid[row - 1, col];
+                        }
+                    }
+
+                    // Clear the top row
+                    for (int col = 0; col < gridWidth; col++)
+                    {
+                        grid[0, col] = Color.Empty;
+                    }
+
+                    y++; // Recheck this row after shifting
+                    score += 100; // Update score
+                    labelScore.Text = "Score: " + score;
+                }
+            }
+        }
+
+
 
 
 
