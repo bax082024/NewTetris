@@ -1,3 +1,5 @@
+using NAudio.Wave;
+
 namespace NewTetris
 {
     public partial class NewTetrisForm : Form
@@ -13,11 +15,20 @@ namespace NewTetris
         private System.Windows.Forms.Timer gameTimer = new System.Windows.Forms.Timer();
         private Random random = new Random();
 
+        private WaveOutEvent startButtonSound;
+        private WaveOutEvent gameplayMusic;
+        private WaveOutEvent collisionSound;
+        private Mp3FileReader startButtonReader;
+        private Mp3FileReader gameplayMusicReader;
+        private Mp3FileReader collisionSoundReader;
+
 
 
         public NewTetrisForm()
         {
             InitializeComponent();
+
+            LoadSounds();
 
             this.KeyPreview = true; // Ensure the form intercepts key events
             this.KeyDown += NewTetrisForm_KeyDown; // Attach KeyDown handler
@@ -428,6 +439,25 @@ namespace NewTetris
             return true;
         }
 
-        
+        private void LoadSounds()
+        {
+            // Initialize WaveOut for each sound
+            startButtonSound = new WaveOutEvent();
+            gameplayMusic = new WaveOutEvent();
+            collisionSound = new WaveOutEvent();
+
+            // Load MP3 files
+            startButtonReader = new Mp3FileReader("Sounds/startbutton.mp3");
+            gameplayMusicReader = new Mp3FileReader("Sounds/tetris.mp3");
+            collisionSoundReader = new Mp3FileReader("Sounds/collision.mp3");
+
+            // Assign readers to the WaveOuts
+            startButtonSound.Init(startButtonReader);
+            gameplayMusic.Init(gameplayMusicReader);
+            collisionSound.Init(collisionSoundReader);
+        }
+
+
+
     }
 }
