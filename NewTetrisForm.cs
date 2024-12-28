@@ -135,6 +135,28 @@ namespace NewTetris
             }
         }
 
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                    if (CanMoveLeft(currentTetromino)) currentTetromino.MoveLeft();
+                    break;
+                case Keys.Right:
+                    if (CanMoveRight(currentTetromino)) currentTetromino.MoveRight();
+                    break;
+                case Keys.Up:
+                    if (CanRotate(currentTetromino)) currentTetromino.Rotate();
+                    break;
+                case Keys.Space: // Hard drop
+                    while (CanMoveDown(currentTetromino))
+                        currentTetromino.MoveDown();
+                    break;
+            }
+
+            gamePanel.Invalidate(); // Redraw
+        }
+
 
 
 
