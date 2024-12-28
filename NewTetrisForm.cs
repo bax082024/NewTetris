@@ -17,5 +17,38 @@ namespace NewTetris
         {
             InitializeComponent();
         }
+
+        public class Tetromino
+        {
+            public Point[] Blocks { get; private set; } // Array of points representing blocks
+            public Color Color { get; private set; } // Color of the Tetromino
+            public Point Position { get; set; } // Top-left position of the Tetromino
+
+            public Tetromino(Point[] blocks, Color color)
+            {
+                Blocks = blocks;
+                Color = color;
+                Position = new Point(0, 0);
+            }
+
+            public void MoveLeft() => Position.X--;
+            public void MoveRight() => Position.X++;
+            public void MoveDown() => Position.Y++;
+            public void Rotate()
+            {
+                for (int i = 0; i < Blocks.Length; i++)
+                {
+                    int x = Blocks[i].X;
+                    Blocks[i].X = Blocks[i].Y;
+                    Blocks[i].Y = -x;
+                }
+            }
+        }
+
+
+
+
+
+
     }
 }
