@@ -1,0 +1,17 @@
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\NewTetris.exe
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\NewTetris.deps.json
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\NewTetris.runtimeconfig.json
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\NewTetris.dll
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\NewTetris.pdb
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.NewTetrisForm.resources
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.csproj.GenerateResource.cache
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.GeneratedMSBuildEditorConfig.editorconfig
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.AssemblyInfoInputs.cache
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.AssemblyInfo.cs
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.csproj.CoreCompileInputs.cache
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.sourcelink.json
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.dll
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\refint\NewTetris.dll
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.pdb
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.genruntimeconfig.cache
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\ref\NewTetris.dll
