@@ -55,7 +55,7 @@
             buttonStart.BackColor = Color.LightBlue;
             buttonStart.FlatStyle = FlatStyle.Popup;
             buttonStart.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonStart.Location = new Point(272, 675);
+            buttonStart.Location = new Point(201, 675);
             buttonStart.Name = "buttonStart";
             buttonStart.Size = new Size(135, 44);
             buttonStart.TabIndex = 3;
@@ -68,7 +68,7 @@
             labelScore.Anchor = AnchorStyles.None;
             labelScore.AutoSize = true;
             labelScore.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelScore.Location = new Point(297, 53);
+            labelScore.Location = new Point(227, 53);
             labelScore.Name = "labelScore";
             labelScore.Size = new Size(73, 21);
             labelScore.TabIndex = 2;
@@ -79,7 +79,7 @@
             lblTitel.Anchor = AnchorStyles.None;
             lblTitel.AutoSize = true;
             lblTitel.Font = new Font("Snap ITC", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitel.Location = new Point(250, 0);
+            lblTitel.Location = new Point(180, 0);
             lblTitel.Name = "lblTitel";
             lblTitel.Size = new Size(193, 48);
             lblTitel.TabIndex = 1;
@@ -91,7 +91,7 @@
             gamePanel.BackColor = Color.Gainsboro;
             gamePanel.Location = new Point(119, 77);
             gamePanel.Name = "gamePanel";
-            gamePanel.Size = new Size(458, 592);
+            gamePanel.Size = new Size(303, 592);
             gamePanel.TabIndex = 0;
             // 
             // NewTetrisForm
@@ -103,7 +103,6 @@
             Controls.Add(panel1);
             Name = "NewTetrisForm";
             Text = "Tetris";
-      
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);

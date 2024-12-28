@@ -13,27 +13,22 @@ namespace NewTetris
         private System.Windows.Forms.Timer gameTimer = new System.Windows.Forms.Timer();
         private Random random = new Random();
 
-        private bool moveLeft = false;
-        private bool moveRight = false;
-        private bool rotate = false;
-        private bool hardDrop = false;
+
 
         public NewTetrisForm()
         {
             InitializeComponent();
 
-            // Hook up key events
-            this.KeyPreview = true; // Ensure the form processes key events
-            this.KeyDown += NewTetrisForm_KeyDown;
-            this.KeyUp += NewTetrisForm_KeyUp;
+            this.KeyPreview = true; // Ensure the form intercepts key events
+            this.KeyDown += NewTetrisForm_KeyDown; // Attach KeyDown handler
 
-            // Hook up other events
-            gameTimer.Tick += GameTimer_Tick;
-            gamePanel.Paint += GamePanel_Paint;
+            gameTimer.Tick += GameTimer_Tick; // Attach game loop handler
+            gamePanel.Paint += GamePanel_Paint; // Attach Paint handler
 
-            // Initialize grid
-            grid = new Color[gridHeight, gridWidth];
+            grid = new Color[gridHeight, gridWidth]; // Initialize the grid
         }
+
+
 
         public class Tetromino
         {
@@ -89,12 +84,11 @@ namespace NewTetris
         {
             Console.WriteLine("Start Button Clicked");
 
-            this.Focus(); // Set focus to the form
+            this.Focus(); // Set focus to the form to capture key events
 
+            // Reset game state
             currentTetromino = GenerateRandomTetromino();
             currentTetromino.Position = new Point(gridWidth / 2, 0);
-
-            // Reset grid
             for (int y = 0; y < gridHeight; y++)
             {
                 for (int x = 0; x < gridWidth; x++)
@@ -103,19 +97,16 @@ namespace NewTetris
                 }
             }
 
-            // Reset game state
             score = 0;
             level = 1;
             fallSpeed = 500;
             labelScore.Text = "Score: " + score;
 
-            // Configure game timer
             gameTimer.Interval = fallSpeed;
             gameTimer.Start();
-
-            // Redraw game panel
-            gamePanel.Invalidate();
+            gamePanel.Invalidate(); // Redraw game panel
         }
+
 
 
 
@@ -215,35 +206,48 @@ namespace NewTetris
 
 
 
-        private void NewTetrisForm_KeyDown(object? sender, KeyEventArgs e)
+
+        private void NewTetrisForm_KeyDown(object sender, KeyEventArgs e)
         {
             Console.WriteLine($"Key pressed: {e.KeyCode}");
 
-            if (currentTetromino == null) return; // Ensure there's a tetromino to move
+            if (currentTetromino == null) return; // Ensure there's a Tetromino to move
 
             switch (e.KeyCode)
             {
                 case Keys.Left:
-                    if (CanMoveLeft(currentTetromino))
-                        currentTetromino.MoveLeft();
+                    if (CanMoveLeft(currentTetromino)) currentTetromino.MoveLeft();
                     break;
 
                 case Keys.Right:
-                    if (CanMoveRight(currentTetromino))
-                        currentTetromino.MoveRight();
+                    if (CanMoveRight(currentTetromino)) currentTetromino.MoveRight();
                     break;
 
                 case Keys.Up:
-                    if (CanRotate(currentTetromino))
-                        currentTetromino.Rotate();
+                    if (CanRotate(currentTetromino)) currentTetromino.Rotate();
+                    break;
+
+                case Keys.Down:
+                    if (CanMoveDown(currentTetromino)) currentTetromino.MoveDown();
+                    else
+                    {
+                        PlaceTetrominoOnGrid(currentTetromino);
+                        ClearCompletedRows();
+                        currentTetromino = GenerateRandomTetromino();
+                        currentTetromino.Position = new Point(gridWidth / 2, 0);
+
+                        if (IsGameOver())
+                        {
+                            gameTimer.Stop();
+                            MessageBox.Show("Game Over! Score: " + score, "Tetris");
+                        }
+                    }
                     break;
 
                 case Keys.Space:
-                    while (CanMoveDown(currentTetromino))
-                        currentTetromino.MoveDown();
+                    while (CanMoveDown(currentTetromino)) currentTetromino.MoveDown();
                     PlaceTetrominoOnGrid(currentTetromino);
                     ClearCompletedRows();
-
                     currentTetromino = GenerateRandomTetromino();
                     currentTetromino.Position = new Point(gridWidth / 2, 0);
 
@@ -255,14 +259,17 @@ namespace NewTetris
                     break;
             }
 
-            gamePanel.Invalidate(); // Redraw the game immediately
+            gamePanel.Invalidate(); // Redraw the game panel
         }
+
+
+
+
 
         private void NewTetrisForm_KeyUp(object? sender, KeyEventArgs e)
         {
             // If needed, reset any flags for continuous actions here
         }
-
 
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -281,12 +288,22 @@ namespace NewTetris
                     NewTetrisForm_KeyDown(this, new KeyEventArgs(Keys.Up));
                     break;
 
+                case Keys.Down:
+                    NewTetrisForm_KeyDown(this, new KeyEventArgs(Keys.Down));
+                    break;
+
                 case Keys.Space:
                     NewTetrisForm_KeyDown(this, new KeyEventArgs(Keys.Space));
                     break;
+
+                default:
+                    return base.ProcessCmdKey(ref msg, keyData); // Let other keys propagate
             }
-            return base.ProcessCmdKey(ref msg, keyData);
+
+            return true; // Mark the key as handled
         }
+
+
 
 
 
