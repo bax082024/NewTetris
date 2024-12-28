@@ -15,3 +15,16 @@ C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\refint\NewTe
 C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.pdb
 C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.genruntimeconfig.cache
 C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\ref\NewTetris.dll
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\Sounds\collision.mp3
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\Sounds\startbutton.mp3
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\Sounds\tetris.mp3
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\NAudio.dll
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\NAudio.Asio.dll
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\NAudio.Core.dll
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\NAudio.Midi.dll
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\NAudio.Wasapi.dll
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\NAudio.WinForms.dll
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\bin\Debug\net8.0-windows\NAudio.WinMM.dll
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.csproj.AssemblyReference.cache
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.csproj.Up2Date
+C:\HjemmeKode\C-Sharp\MyProjects\NewTetris\obj\Debug\net8.0-windows\NewTetris.Properties.Resources.resources
