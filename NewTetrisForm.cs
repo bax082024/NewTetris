@@ -1,4 +1,5 @@
 using NAudio.Wave;
+using System.Drawing.Drawing2D;
 
 namespace NewTetris
 {
@@ -154,7 +155,17 @@ namespace NewTetris
             };
         }
 
-
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            using (LinearGradientBrush gradientBrush = new LinearGradientBrush(
+                this.ClientRectangle,
+                Color.DarkBlue,  // Top color
+                Color.Purple,        // Bottom color
+                LinearGradientMode.Vertical))
+            {
+                e.Graphics.FillRectangle(gradientBrush, this.ClientRectangle);
+            }
+        }
 
 
 
