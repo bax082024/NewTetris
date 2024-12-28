@@ -121,9 +121,10 @@ namespace NewTetris
 
             // Reset game state
             score = 0;
-            level = 1;
+            level = 1; // Reset level
             fallSpeed = 500;
             labelScore.Text = "Score: " + score;
+            labelLevel.Text = "Level: " + level;
 
             // Initialize Tetromino
             currentTetromino = GenerateRandomTetromino();
@@ -136,6 +137,7 @@ namespace NewTetris
             // Redraw game panel
             gamePanel.Invalidate();
         }
+
 
         private void OnCollision()
         {
@@ -176,6 +178,8 @@ namespace NewTetris
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
+            Console.WriteLine($"Level: {level}, FallSpeed: {fallSpeed}ms");
+
             if (CanMoveDown(currentTetromino))
             {
                 currentTetromino.MoveDown();
@@ -183,8 +187,6 @@ namespace NewTetris
             else
             {
                 PlaceTetrominoOnGrid(currentTetromino);
-                OnCollision(); // Play collision sound
-
                 ClearCompletedRows();
 
                 currentTetromino = GenerateRandomTetromino();
@@ -194,13 +196,12 @@ namespace NewTetris
                 {
                     gameTimer.Stop();
                     MessageBox.Show("Game Over! Score: " + score, "Tetris");
-                    gameplayMusic.Stop(); // Stop the gameplay music
-                    return;
                 }
             }
 
             gamePanel.Invalidate(); // Redraw the game
         }
+
 
 
 
@@ -425,9 +426,20 @@ namespace NewTetris
                     y++; // Recheck this row after shifting
                     score += 100; // Update score
                     labelScore.Text = "Score: " + score;
+
+                    // Check for level up
+                    int newLevel = (score / 500) + 1; // Increase level every 500 points
+                    if (newLevel > level)
+                    {
+                        level = newLevel;
+                        labelLevel.Text = "Level: " + level;
+                        fallSpeed = Math.Max(50, 500 - (level - 1) * 50); // Reduce fallSpeed but not below 50ms
+                        gameTimer.Interval = fallSpeed; // Apply new speed
+                    }
                 }
             }
         }
+
 
         private bool IsGameOver()
         {

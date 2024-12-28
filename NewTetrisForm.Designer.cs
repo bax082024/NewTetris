@@ -41,6 +41,7 @@
             labelScore = new Label();
             lblTitel = new Label();
             gamePanel = new Panel();
+            labelLevel = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
@@ -55,6 +56,7 @@
             // panel1
             // 
             panel1.BackColor = Color.Transparent;
+            panel1.Controls.Add(labelLevel);
             panel1.Controls.Add(pictureBox8);
             panel1.Controls.Add(pictureBox7);
             panel1.Controls.Add(pictureBox6);
@@ -181,7 +183,7 @@
             labelScore.AutoSize = true;
             labelScore.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelScore.ForeColor = Color.Brown;
-            labelScore.Location = new Point(239, 53);
+            labelScore.Location = new Point(161, 53);
             labelScore.Name = "labelScore";
             labelScore.Size = new Size(73, 21);
             labelScore.TabIndex = 2;
@@ -208,6 +210,18 @@
             gamePanel.Size = new Size(303, 601);
             gamePanel.TabIndex = 0;
             // 
+            // labelLevel
+            // 
+            labelLevel.Anchor = AnchorStyles.None;
+            labelLevel.AutoSize = true;
+            labelLevel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelLevel.ForeColor = Color.Brown;
+            labelLevel.Location = new Point(309, 53);
+            labelLevel.Name = "labelLevel";
+            labelLevel.Size = new Size(71, 21);
+            labelLevel.TabIndex = 12;
+            labelLevel.Text = "Level : 1";
+            // 
             // NewTetrisForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -216,6 +230,7 @@
             ClientSize = new Size(567, 748);
             Controls.Add(panel1);
             Name = "NewTetrisForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Tetris";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -247,5 +262,6 @@
         private PictureBox pictureBox1;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel toolStripStatusLabel1;
+        private Label labelLevel;
     }
 }
