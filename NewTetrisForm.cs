@@ -267,6 +267,7 @@ namespace NewTetris
                 hardDrop = false;
         }
 
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             switch (keyData)
@@ -286,6 +287,7 @@ namespace NewTetris
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
 
 
 
