@@ -23,8 +23,7 @@ namespace NewTetris
             InitializeComponent();
 
             this.KeyPreview = true;
-
-            this.KeyDown += Form_KeyDown;
+          
 
             gameTimer.Tick += GameTimer_Tick;
 
@@ -129,25 +128,46 @@ namespace NewTetris
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
+            // Handle continuous movement
+            if (moveLeft && CanMoveLeft(currentTetromino))
+            {
+                currentTetromino.MoveLeft();
+                moveLeft = false; // Reset after movement
+            }
+            else if (moveRight && CanMoveRight(currentTetromino))
+            {
+                currentTetromino.MoveRight();
+                moveRight = false; // Reset after movement
+            }
 
+            // Handle rotation
+            if (rotate && CanRotate(currentTetromino))
+            {
+                currentTetromino.Rotate();
+                rotate = false; // Reset after rotation
+            }
 
+            // Handle hard drop
+            if (hardDrop)
+            {
+                while (CanMoveDown(currentTetromino))
+                    currentTetromino.MoveDown();
+                hardDrop = false; // Reset after hard drop
+            }
+
+            // Handle falling
             if (CanMoveDown(currentTetromino))
             {
                 currentTetromino.MoveDown();
             }
             else
             {
-                // Place the Tetromino on the grid
                 PlaceTetrominoOnGrid(currentTetromino);
-
-                // Clear completed rows
                 ClearCompletedRows();
 
-                // Generate a new Tetromino
                 currentTetromino = GenerateRandomTetromino();
                 currentTetromino.Position = new Point(gridWidth / 2, 0);
 
-                // Check for Game Over
                 if (IsGameOver())
                 {
                     gameTimer.Stop();
@@ -156,9 +176,10 @@ namespace NewTetris
                 }
             }
 
-            // Redraw the game
-            gamePanel.Invalidate();
+            gamePanel.Invalidate(); // Redraw the game
         }
+
+
 
 
 
@@ -245,6 +266,27 @@ namespace NewTetris
             else if (e.KeyCode == Keys.Space)
                 hardDrop = false;
         }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.Left:
+                    moveLeft = true;
+                    break;
+                case Keys.Right:
+                    moveRight = true;
+                    break;
+                case Keys.Up:
+                    rotate = true;
+                    break;
+                case Keys.Space:
+                    hardDrop = true;
+                    break;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
 
 
 

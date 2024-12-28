@@ -103,7 +103,7 @@
             Controls.Add(panel1);
             Name = "NewTetrisForm";
             Text = "Tetris";
-            KeyDown += Form_KeyDown;
+      
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
