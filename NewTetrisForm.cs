@@ -22,14 +22,16 @@ namespace NewTetris
         {
             InitializeComponent();
 
-            this.KeyPreview = true;
-          
+            // Hook up key events
+            this.KeyPreview = true; // Ensure the form processes key events
+            this.KeyDown += NewTetrisForm_KeyDown;
+            this.KeyUp += NewTetrisForm_KeyUp;
 
+            // Hook up other events
             gameTimer.Tick += GameTimer_Tick;
-
-            // Properly connect Paint event
             gamePanel.Paint += GamePanel_Paint;
 
+            // Initialize grid
             grid = new Color[gridHeight, gridWidth];
         }
 
@@ -86,8 +88,8 @@ namespace NewTetris
         private void buttonStart_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Start Button Clicked");
-            this.Focus(); // Ensure the form has focus
 
+            this.Focus(); // Set focus to the form
 
             currentTetromino = GenerateRandomTetromino();
             currentTetromino.Position = new Point(gridWidth / 2, 0);
@@ -107,10 +109,6 @@ namespace NewTetris
             fallSpeed = 500;
             labelScore.Text = "Score: " + score;
 
-            // Initialize Tetromino
-            currentTetromino = GenerateRandomTetromino();
-            currentTetromino.Position = new Point(gridWidth / 2, 0);
-
             // Configure game timer
             gameTimer.Interval = fallSpeed;
             gameTimer.Start();
@@ -126,36 +124,9 @@ namespace NewTetris
 
 
 
+
         private void GameTimer_Tick(object sender, EventArgs e)
         {
-            // Handle continuous movement
-            if (moveLeft && CanMoveLeft(currentTetromino))
-            {
-                currentTetromino.MoveLeft();
-                moveLeft = false; // Reset after movement
-            }
-            else if (moveRight && CanMoveRight(currentTetromino))
-            {
-                currentTetromino.MoveRight();
-                moveRight = false; // Reset after movement
-            }
-
-            // Handle rotation
-            if (rotate && CanRotate(currentTetromino))
-            {
-                currentTetromino.Rotate();
-                rotate = false; // Reset after rotation
-            }
-
-            // Handle hard drop
-            if (hardDrop)
-            {
-                while (CanMoveDown(currentTetromino))
-                    currentTetromino.MoveDown();
-                hardDrop = false; // Reset after hard drop
-            }
-
-            // Handle falling
             if (CanMoveDown(currentTetromino))
             {
                 currentTetromino.MoveDown();
@@ -178,6 +149,7 @@ namespace NewTetris
 
             gamePanel.Invalidate(); // Redraw the game
         }
+
 
 
 
@@ -245,27 +217,52 @@ namespace NewTetris
 
         private void NewTetrisForm_KeyDown(object? sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Left)
-                moveLeft = true;
-            else if (e.KeyCode == Keys.Right)
-                moveRight = true;
-            else if (e.KeyCode == Keys.Up)
-                rotate = true;
-            else if (e.KeyCode == Keys.Space)
-                hardDrop = true;
+            Console.WriteLine($"Key pressed: {e.KeyCode}");
+
+            if (currentTetromino == null) return; // Ensure there's a tetromino to move
+
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                    if (CanMoveLeft(currentTetromino))
+                        currentTetromino.MoveLeft();
+                    break;
+
+                case Keys.Right:
+                    if (CanMoveRight(currentTetromino))
+                        currentTetromino.MoveRight();
+                    break;
+
+                case Keys.Up:
+                    if (CanRotate(currentTetromino))
+                        currentTetromino.Rotate();
+                    break;
+
+                case Keys.Space:
+                    while (CanMoveDown(currentTetromino))
+                        currentTetromino.MoveDown();
+                    PlaceTetrominoOnGrid(currentTetromino);
+                    ClearCompletedRows();
+
+                    currentTetromino = GenerateRandomTetromino();
+                    currentTetromino.Position = new Point(gridWidth / 2, 0);
+
+                    if (IsGameOver())
+                    {
+                        gameTimer.Stop();
+                        MessageBox.Show("Game Over! Score: " + score, "Tetris");
+                    }
+                    break;
+            }
+
+            gamePanel.Invalidate(); // Redraw the game immediately
         }
 
         private void NewTetrisForm_KeyUp(object? sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Left)
-                moveLeft = false;
-            else if (e.KeyCode == Keys.Right)
-                moveRight = false;
-            else if (e.KeyCode == Keys.Up)
-                rotate = false;
-            else if (e.KeyCode == Keys.Space)
-                hardDrop = false;
+            // If needed, reset any flags for continuous actions here
         }
+
 
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -273,20 +270,24 @@ namespace NewTetris
             switch (keyData)
             {
                 case Keys.Left:
-                    moveLeft = true;
+                    NewTetrisForm_KeyDown(this, new KeyEventArgs(Keys.Left));
                     break;
+
                 case Keys.Right:
-                    moveRight = true;
+                    NewTetrisForm_KeyDown(this, new KeyEventArgs(Keys.Right));
                     break;
+
                 case Keys.Up:
-                    rotate = true;
+                    NewTetrisForm_KeyDown(this, new KeyEventArgs(Keys.Up));
                     break;
+
                 case Keys.Space:
-                    hardDrop = true;
+                    NewTetrisForm_KeyDown(this, new KeyEventArgs(Keys.Space));
                     break;
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
 
 
 
@@ -367,6 +368,19 @@ namespace NewTetris
 
 
 
+        private bool CanMoveLeft(Tetromino tetromino)
+        {
+            foreach (var block in tetromino.Blocks)
+            {
+                int x = tetromino.Position.X + block.X - 1;
+                int y = tetromino.Position.Y + block.Y;
+
+                if (x < 0 || (y >= 0 && grid[y, x] != Color.Empty))
+                    return false;
+            }
+            return true;
+        }
+
         private bool CanMoveRight(Tetromino tetromino)
         {
             foreach (var block in tetromino.Blocks)
@@ -375,30 +389,11 @@ namespace NewTetris
                 int y = tetromino.Position.Y + block.Y;
 
                 if (x >= gridWidth || (y >= 0 && grid[y, x] != Color.Empty))
-                {
                     return false;
-                }
             }
             return true;
         }
 
-        private bool CanMoveLeft(Tetromino tetromino)
-        {
-            Console.WriteLine("Checking CanMoveLeft...");
-            foreach (var block in tetromino.Blocks)
-            {
-                int x = tetromino.Position.X + block.X - 1;
-                int y = tetromino.Position.Y + block.Y;
-
-                if (x < 0 || (y >= 0 && grid[y, x] != Color.Empty))
-                {
-                    Console.WriteLine("Cannot move left");
-                    return false;
-                }
-            }
-            Console.WriteLine("Can move left");
-            return true;
-        }
 
 
         private bool CanRotate(Tetromino tetromino)
