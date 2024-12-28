@@ -61,11 +61,39 @@ namespace NewTetris
             };
         }
 
+        private void buttonStart_Click(object sender, EventArgs e)
+        {
+            grid = new Color[gridHeight, gridWidth]; // Initialize the grid
+            score = 0;
+            level = 1;
+            fallSpeed = 500;
+            currentTetromino = GenerateRandomTetromino(); // Generate the first piece
+            gameTimer.Interval = fallSpeed;
+            gameTimer.Start();
+            gamePanel.Invalidate(); // Redraw the game area
+        }
 
+        private void GameTimer_Tick(object sender, EventArgs e)
+        {
+            if (CanMoveDown(currentTetromino))
+            {
+                currentTetromino.MoveDown();
+            }
+            else
+            {
+                PlaceTetrominoOnGrid(currentTetromino);
+                ClearCompletedRows();
+                currentTetromino = GenerateRandomTetromino();
 
+                if (IsGameOver())
+                {
+                    gameTimer.Stop();
+                    MessageBox.Show("Game Over! Score: " + score, "Tetris");
+                }
+            }
 
-
-
+            gamePanel.Invalidate(); // Redraw the game
+        }
 
     }
 }
