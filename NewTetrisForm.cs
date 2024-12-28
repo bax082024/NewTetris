@@ -1,3 +1,5 @@
+using NAudio.Wave;
+
 namespace NewTetris
 {
     public partial class NewTetrisForm : Form
@@ -13,11 +15,20 @@ namespace NewTetris
         private System.Windows.Forms.Timer gameTimer = new System.Windows.Forms.Timer();
         private Random random = new Random();
 
+        private WaveOutEvent startButtonSound;
+        private WaveOutEvent gameplayMusic;
+        private WaveOutEvent collisionSound;
+        private Mp3FileReader startButtonReader;
+        private Mp3FileReader gameplayMusicReader;
+        private Mp3FileReader collisionSoundReader;
+
 
 
         public NewTetrisForm()
         {
             InitializeComponent();
+
+            LoadSounds();
 
             this.KeyPreview = true; // Ensure the form intercepts key events
             this.KeyDown += NewTetrisForm_KeyDown; // Attach KeyDown handler
@@ -84,11 +95,21 @@ namespace NewTetris
         {
             Console.WriteLine("Start Button Clicked");
 
-            this.Focus(); // Set focus to the form to capture key events
+            // Play start button sound
+            startButtonSound.Stop();
+            startButtonSound.Play();
 
-            // Reset game state
-            currentTetromino = GenerateRandomTetromino();
-            currentTetromino.Position = new Point(gridWidth / 2, 0);
+            // Start gameplay music
+            gameplayMusic.Stop();
+            StartGameplayMusic();
+
+            // Start the game
+            StartGame();
+        }
+
+        private void StartGame()
+        {
+            // Reset grid
             for (int y = 0; y < gridHeight; y++)
             {
                 for (int x = 0; x < gridWidth; x++)
@@ -97,14 +118,40 @@ namespace NewTetris
                 }
             }
 
+            // Reset game state
             score = 0;
             level = 1;
             fallSpeed = 500;
             labelScore.Text = "Score: " + score;
 
+            // Initialize Tetromino
+            currentTetromino = GenerateRandomTetromino();
+            currentTetromino.Position = new Point(gridWidth / 2, 0);
+
+            // Configure game timer
             gameTimer.Interval = fallSpeed;
             gameTimer.Start();
-            gamePanel.Invalidate(); // Redraw game panel
+
+            // Redraw game panel
+            gamePanel.Invalidate();
+        }
+
+        private void OnCollision()
+        {
+            // Play collision sound
+            collisionSound.Stop();
+            collisionSound.Play();
+        }
+
+        private void StartGameplayMusic()
+        {
+            gameplayMusic.Play();
+            gameplayMusic.PlaybackStopped += (s, e) =>
+            {
+                // Reset the position and replay the music to loop it
+                gameplayMusicReader.Position = 0;
+                gameplayMusic.Play();
+            };
         }
 
 
@@ -125,6 +172,8 @@ namespace NewTetris
             else
             {
                 PlaceTetrominoOnGrid(currentTetromino);
+                OnCollision(); // Play collision sound
+
                 ClearCompletedRows();
 
                 currentTetromino = GenerateRandomTetromino();
@@ -134,6 +183,7 @@ namespace NewTetris
                 {
                     gameTimer.Stop();
                     MessageBox.Show("Game Over! Score: " + score, "Tetris");
+                    gameplayMusic.Stop(); // Stop the gameplay music
                     return;
                 }
             }
@@ -428,6 +478,36 @@ namespace NewTetris
             return true;
         }
 
-        
+        private void LoadSounds()
+        {
+            // Initialize WaveOut for each sound
+            startButtonSound = new WaveOutEvent();
+            gameplayMusic = new WaveOutEvent();
+            collisionSound = new WaveOutEvent();
+
+            // Load MP3 files
+            startButtonReader = new Mp3FileReader("Sounds/startbutton.mp3");
+            gameplayMusicReader = new Mp3FileReader("Sounds/tetris.mp3");
+            collisionSoundReader = new Mp3FileReader("Sounds/collision.mp3");
+
+            // Assign readers to the WaveOuts
+            startButtonSound.Init(startButtonReader);
+            gameplayMusic.Init(gameplayMusicReader);
+            collisionSound.Init(collisionSoundReader);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            // Dispose all NAudio resources
+            startButtonSound?.Dispose();
+            gameplayMusic?.Dispose();
+            collisionSound?.Dispose();
+            startButtonReader?.Dispose();
+            gameplayMusicReader?.Dispose();
+            collisionSoundReader?.Dispose();
+
+            base.OnFormClosing(e);
+        }
+
     }
 }
