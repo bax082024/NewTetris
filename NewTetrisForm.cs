@@ -217,6 +217,22 @@ namespace NewTetris
             }
         }
 
+        private bool IsGameOver()
+        {
+            foreach (var block in currentTetromino.Blocks)
+            {
+                int x = currentTetromino.Position.X + block.X;
+                int y = currentTetromino.Position.Y + block.Y;
+
+                if (y >= 0 && grid[y, x] != Color.Empty)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
 
 
 
