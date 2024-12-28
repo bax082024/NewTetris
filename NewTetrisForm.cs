@@ -232,6 +232,51 @@ namespace NewTetris
             return false;
         }
 
+        private bool CanMoveRight(Tetromino tetromino)
+        {
+            foreach (var block in tetromino.Blocks)
+            {
+                int x = tetromino.Position.X + block.X + 1;
+                int y = tetromino.Position.Y + block.Y;
+
+                if (x >= gridWidth || (y >= 0 && grid[y, x] != Color.Empty))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool CanMoveLeft(Tetromino tetromino)
+        {
+            foreach (var block in tetromino.Blocks)
+            {
+                int x = tetromino.Position.X + block.X - 1;
+                int y = tetromino.Position.Y + block.Y;
+
+                if (x < 0 || (y >= 0 && grid[y, x] != Color.Empty))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool CanRotate(Tetromino tetromino)
+        {
+            foreach (var block in tetromino.Blocks)
+            {
+                int x = tetromino.Position.X - block.Y;
+                int y = tetromino.Position.Y + block.X;
+
+                if (x < 0 || x >= gridWidth || y >= gridHeight || (y >= 0 && grid[y, x] != Color.Empty))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
 
 
