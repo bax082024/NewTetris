@@ -108,6 +108,34 @@ namespace NewTetris
             return true;
         }
 
+        private void GamePanel_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+
+            // Draw the grid
+            for (int y = 0; y < gridHeight; y++)
+            {
+                for (int x = 0; x < gridWidth; x++)
+                {
+                    if (grid[y, x] != Color.Empty)
+                    {
+                        g.FillRectangle(new SolidBrush(grid[y, x]), x * cellSize, y * cellSize, cellSize, cellSize);
+                        g.DrawRectangle(Pens.Black, x * cellSize, y * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+
+            // Draw the current Tetromino
+            foreach (var block in currentTetromino.Blocks)
+            {
+                int drawX = (currentTetromino.Position.X + block.X) * cellSize;
+                int drawY = (currentTetromino.Position.Y + block.Y) * cellSize;
+                g.FillRectangle(new SolidBrush(currentTetromino.Color), drawX, drawY, cellSize, cellSize);
+                g.DrawRectangle(Pens.Black, drawX, drawY, cellSize, cellSize);
+            }
+        }
+
+
 
 
 
