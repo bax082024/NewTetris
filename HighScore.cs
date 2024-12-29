@@ -9,8 +9,8 @@ namespace NewTetris
 {
     public class HighScore
     {
-        public string Name { get; set; }
-        public int Score { get; set; }
+        public string Name { get; set; } = String.Empty;
+        public int Score { get; set; } = String.Empty;
 
 
     }
