@@ -30,6 +30,10 @@
         {
             panel1 = new Panel();
             dataGridView1 = new DataGridView();
+            textBox1 = new TextBox();
+            button1 = new Button();
+            button2 = new Button();
+            label1 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -37,11 +41,15 @@
             // panel1
             // 
             panel1.BackColor = Color.Transparent;
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(button2);
+            panel1.Controls.Add(button1);
+            panel1.Controls.Add(textBox1);
             panel1.Controls.Add(dataGridView1);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(339, 521);
+            panel1.Size = new Size(339, 510);
             panel1.TabIndex = 0;
             // 
             // dataGridView1
@@ -52,17 +60,52 @@
             dataGridView1.Size = new Size(240, 288);
             dataGridView1.TabIndex = 0;
             // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(97, 376);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(140, 23);
+            textBox1.TabIndex = 1;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(97, 410);
+            button1.Name = "button1";
+            button1.Size = new Size(140, 33);
+            button1.TabIndex = 2;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(97, 449);
+            button2.Name = "button2";
+            button2.Size = new Size(140, 33);
+            button2.TabIndex = 3;
+            button2.Text = "button2";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(120, 15);
+            label1.Name = "label1";
+            label1.Size = new Size(38, 15);
+            label1.TabIndex = 4;
+            label1.Text = "label1";
+            // 
             // HighScoreForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Info;
-            ClientSize = new Size(339, 521);
+            ClientSize = new Size(339, 510);
             Controls.Add(panel1);
             Name = "HighScoreForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HighScoreForm";
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
@@ -71,5 +114,9 @@
 
         private Panel panel1;
         private DataGridView dataGridView1;
+        private Label label1;
+        private Button button2;
+        private Button button1;
+        private TextBox textBox1;
     }
 }
