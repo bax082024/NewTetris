@@ -195,7 +195,8 @@ namespace NewTetris
                 if (IsGameOver())
                 {
                     gameTimer.Stop();
-                    MessageBox.Show("Game Over! Score: " + score, "Tetris");
+                    ShowGameOverDialog(); // Call the new custom Game Over dialog
+                    return;
                 }
             }
 
@@ -203,6 +204,27 @@ namespace NewTetris
         }
 
 
+        private void ShowGameOverDialog()
+        {
+            // Pause background music
+            gameplayMusic?.Stop();
+
+            // Create a custom dialog
+            var result = MessageBox.Show(
+                $"Game Over! Your Score: {score}\n\nWould you like to play again?",
+                "Game Over",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                RestartGame(); // Restart the game if "Yes" is selected
+            }
+            else
+            {
+                Application.Exit(); // Exit the application if "No" is selected
+            }
+        }
 
 
 
