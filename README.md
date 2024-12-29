@@ -14,3 +14,6 @@ A classic Tetris game built with C# and Windows Forms, featuring sound effects, 
 
 ---
 
+## Screenshot
+
+<img src="Images/game.png" alt="1" width="450"><img src="Images/highscore.png" alt="1" width="150">
