@@ -6,12 +6,10 @@ using System.Windows.Forms;
 
 namespace NewTetris
 {
-   
-
     public partial class HighScoreForm : Form
     {
         private List<HighScore> highScores;
-        private int currentScore; // Score from the game
+        private int currentScore;
 
         public HighScoreForm(int score)
         {
@@ -48,12 +46,12 @@ namespace NewTetris
             }
 
             highScores.Add(new HighScore { Name = name, Score = currentScore });
-            highScores = highScores.OrderByDescending(s => s.Score).Take(10).ToList(); // Keep top 10 scores
+            highScores = highScores.OrderByDescending(s => s.Score).Take(10).ToList();
             HighScore.SaveHighScores(highScores);
             PopulateHighScoreList();
 
             MessageBox.Show("Your score has been added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Close(); // Close the form after adding the score
+            Close();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

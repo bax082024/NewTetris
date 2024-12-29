@@ -5,14 +5,14 @@ namespace NewTetris
 {
     public partial class NewTetrisForm : Form
     {
-        private int gridWidth = 10; // Number of columns
-        private int gridHeight = 20; // Number of rows
-        private int cellSize = 30; // Size of each block in pixels
-        private Color[,] grid; // The grid to store colors of placed blocks
-        private Tetromino currentTetromino; // The current piece
-        private int score = 0; // Player's score
-        private int level = 1; // Current game level
-        private int fallSpeed = 500; // Speed in milliseconds
+        private int gridWidth = 10;
+        private int gridHeight = 20;
+        private int cellSize = 30;
+        private Color[,] grid;
+        private Tetromino currentTetromino;
+        private int score = 0;
+        private int level = 1;
+        private int fallSpeed = 500;
         private System.Windows.Forms.Timer gameTimer = new System.Windows.Forms.Timer();
         private Random random = new Random();
 
@@ -23,36 +23,32 @@ namespace NewTetris
         private Mp3FileReader gameplayMusicReader;
         private Mp3FileReader collisionSoundReader;
 
-
-
         public NewTetrisForm()
         {
             InitializeComponent();
 
             LoadSounds();
 
-            this.KeyPreview = true; // Ensure the form intercepts key events
-            this.KeyDown += NewTetrisForm_KeyDown; // Attach KeyDown handler
+            this.KeyPreview = true;
+            this.KeyDown += NewTetrisForm_KeyDown;
 
-            gameTimer.Tick += GameTimer_Tick; // Attach game loop handler
-            gamePanel.Paint += GamePanel_Paint; // Attach Paint handler
+            gameTimer.Tick += GameTimer_Tick;
+            gamePanel.Paint += GamePanel_Paint;
 
-            grid = new Color[gridHeight, gridWidth]; // Initialize the grid
+            grid = new Color[gridHeight, gridWidth];
         }
-
-
 
         public class Tetromino
         {
-            private Point position; // Backing field for position
+            private Point position;
             public Point Position
             {
                 get => position;
-                set => position = value; // Allow mutation
+                set => position = value;
             }
 
-            public Point[] Blocks { get; private set; } // Array of points representing blocks
-            public Color Color { get; private set; } // Color of the Tetromino
+            public Point[] Blocks { get; private set; }
+            public Color Color { get; private set; }
 
             public Tetromino(Point[] blocks, Color color)
             {
@@ -75,7 +71,6 @@ namespace NewTetris
             }
         }
 
-
         private Tetromino GenerateRandomTetromino()
         {
             int type = random.Next(0, 7);
@@ -91,10 +86,8 @@ namespace NewTetris
                 _ => throw new Exception("Invalid Tetromino type")
             };
 
-            // Set starting position
             tetromino.Position = new Point(gridWidth / 2, 0);
 
-            // Validate starting position
             if (!CanMoveDown(tetromino) && IsGameOver())
             {
                 ShowGameOverDialog();
@@ -103,58 +96,47 @@ namespace NewTetris
             return tetromino;
         }
 
-
-
         private void buttonStart_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Start Button Clicked");
 
-            // Play start button sound
             startButtonSound.Stop();
             startButtonSound.Play();
 
-            // Start gameplay music
             gameplayMusic.Stop();
             StartGameplayMusic();
 
-            // Start the game
             StartGame();
         }
 
         private void StartGame()
         {
-            // Reset grid
             for (int y = 0; y < gridHeight; y++)
             {
                 for (int x = 0; x < gridWidth; x++)
                 {
-                    grid[y, x] = Color.Empty; // Clear the grid
+                    grid[y, x] = Color.Empty;
                 }
             }
 
-            // Reset game state
             score = 0;
-            level = 1; // Reset level
+            level = 1;
             fallSpeed = 500;
             labelScore.Text = "Score: " + score;
             labelLevel.Text = "Level: " + level;
 
-            // Initialize Tetromino
             currentTetromino = GenerateRandomTetromino();
             currentTetromino.Position = new Point(gridWidth / 2, 0);
 
-            // Configure game timer
             gameTimer.Interval = fallSpeed;
             gameTimer.Start();
 
-            // Redraw game panel
             gamePanel.Invalidate();
         }
 
 
         private void OnCollision()
         {
-            // Play collision sound
             collisionSound.Stop();
             collisionSound.Play();
         }
@@ -164,7 +146,6 @@ namespace NewTetris
             gameplayMusic.Play();
             gameplayMusic.PlaybackStopped += (s, e) =>
             {
-                // Reset the position and replay the music to loop it
                 gameplayMusicReader.Position = 0;
                 gameplayMusic.Play();
             };
@@ -182,13 +163,6 @@ namespace NewTetris
             }
         }
 
-
-
-
-
-
-
-
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             if (CanMoveDown(currentTetromino))
@@ -200,11 +174,9 @@ namespace NewTetris
                 PlaceTetrominoOnGrid(currentTetromino);
                 ClearCompletedRows();
 
-                // Generate a new Tetromino
                 currentTetromino = GenerateRandomTetromino();
                 currentTetromino.Position = new Point(gridWidth / 2, 0);
 
-                // Check game over immediately after generating a new Tetromino
                 if (IsGameOver())
                 {
                     gameTimer.Stop();
@@ -213,7 +185,7 @@ namespace NewTetris
                 }
             }
 
-            gamePanel.Invalidate(); // Redraw the game
+            gamePanel.Invalidate();
         }
 
 
@@ -221,15 +193,12 @@ namespace NewTetris
 
         private void ShowGameOverDialog()
         {
-            // Stop background music and the game timer
             gameplayMusic?.Stop();
             gameTimer.Stop();
 
-            // Show the High Score form
             var highScoreForm = new HighScoreForm(score);
             highScoreForm.ShowDialog();
 
-            // Add a confirmation dialog if the user wants to play again
             var result = MessageBox.Show(
                 "Do you want to play again?",
                 "Game Over",
@@ -246,21 +215,14 @@ namespace NewTetris
             }
         }
 
-
-
-
-
-
         private void RestartGame()
         {
-            // Reset game state
             score = 0;
             level = 1;
             fallSpeed = 500;
             labelScore.Text = $"Score: {score}";
             labelLevel.Text = $"Level: {level}";
 
-            // Clear the grid
             for (int y = 0; y < gridHeight; y++)
             {
                 for (int x = 0; x < gridWidth; x++)
@@ -269,40 +231,27 @@ namespace NewTetris
                 }
             }
 
-            // Initialize a new Tetromino
             currentTetromino = GenerateRandomTetromino();
             currentTetromino.Position = new Point(gridWidth / 2, 0);
 
-            // Restart the timer and music
             gameTimer.Start();
             StartGameplayMusic();
 
-            // Redraw the panel
             gamePanel.Invalidate();
         }
-
-
-
-
-
-
-
-
 
         private bool CanMoveDown(Tetromino tetromino)
         {
             foreach (var block in tetromino.Blocks)
             {
-                int newX = tetromino.Position.X + block.X; // Column
-                int newY = tetromino.Position.Y + block.Y + 1; // Row (move down)
+                int newX = tetromino.Position.X + block.X;
+                int newY = tetromino.Position.Y + block.Y + 1;
 
-                // Check if the block would go out of bounds (past the bottom)
                 if (newY >= gridHeight)
                 {
                     return false;
                 }
 
-                // Check if the block would collide with an existing block on the grid
                 if (newY >= 0 && grid[newY, newX] != Color.Empty)
                 {
                     return false;
@@ -311,14 +260,10 @@ namespace NewTetris
             return true;
         }
 
-
-
-
         private void GamePanel_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
 
-            // Draw the grid
             for (int y = 0; y < gridHeight; y++)
             {
                 for (int x = 0; x < gridWidth; x++)
@@ -331,7 +276,6 @@ namespace NewTetris
                 }
             }
 
-            // Draw the current Tetromino if it's not null
             if (currentTetromino != null)
             {
                 foreach (var block in currentTetromino.Blocks)
@@ -344,16 +288,11 @@ namespace NewTetris
             }
         }
 
-
-
-
-
-
         private void NewTetrisForm_KeyDown(object sender, KeyEventArgs e)
         {
             Console.WriteLine($"Key pressed: {e.KeyCode}");
 
-            if (currentTetromino == null) return; // Ensure there's a Tetromino to move
+            if (currentTetromino == null) return;
 
             switch (e.KeyCode)
             {
@@ -401,7 +340,7 @@ namespace NewTetris
                     break;
             }
 
-            gamePanel.Invalidate(); // Redraw the game panel
+            gamePanel.Invalidate();
         }
 
 
@@ -410,7 +349,7 @@ namespace NewTetris
 
         private void NewTetrisForm_KeyUp(object? sender, KeyEventArgs e)
         {
-            // If needed, reset any flags for continuous actions here
+            // If needed
         }
 
 
@@ -439,10 +378,10 @@ namespace NewTetris
                     break;
 
                 default:
-                    return base.ProcessCmdKey(ref msg, keyData); // Let other keys propagate
+                    return base.ProcessCmdKey(ref msg, keyData);
             }
 
-            return true; // Mark the key as handled
+            return true;
         }
 
 
@@ -462,15 +401,12 @@ namespace NewTetris
                 int x = tetromino.Position.X + block.X;
                 int y = tetromino.Position.Y + block.Y;
 
-                // Ensure placement is within bounds
                 if (y >= 0 && y < gridHeight && x >= 0 && x < gridWidth)
                 {
                     grid[y, x] = tetromino.Color;
                 }
             }
         }
-
-
 
         private void ClearCompletedRows()
         {
@@ -488,7 +424,6 @@ namespace NewTetris
 
                 if (isComplete)
                 {
-                    // Shift all rows above down
                     for (int row = y; row > 0; row--)
                     {
                         for (int col = 0; col < gridWidth; col++)
@@ -497,24 +432,22 @@ namespace NewTetris
                         }
                     }
 
-                    // Clear the top row
                     for (int col = 0; col < gridWidth; col++)
                     {
                         grid[0, col] = Color.Empty;
                     }
 
-                    y++; // Recheck this row after shifting
-                    score += 100; // Update score
+                    y++;
+                    score += 100;
                     labelScore.Text = "Score: " + score;
 
-                    // Check for level up
-                    int newLevel = (score / 500) + 1; // Increase level every 500 points
+                    int newLevel = (score / 500) + 1;
                     if (newLevel > level)
                     {
                         level = newLevel;
                         labelLevel.Text = "Level: " + level;
-                        fallSpeed = Math.Max(50, 500 - (level - 1) * 50); // Reduce fallSpeed but not below 50ms
-                        gameTimer.Interval = fallSpeed; // Apply new speed
+                        fallSpeed = Math.Max(50, 500 - (level - 1) * 50);
+                        gameTimer.Interval = fallSpeed;
                     }
                 }
             }
@@ -528,7 +461,6 @@ namespace NewTetris
                 int x = currentTetromino.Position.X + block.X;
                 int y = currentTetromino.Position.Y + block.Y;
 
-                // Check if block overlaps with an existing block at the top
                 if (y >= 0 && grid[y, x] != Color.Empty)
                 {
                     return true;
@@ -536,11 +468,6 @@ namespace NewTetris
             }
             return false;
         }
-
-
-
-
-
 
         private bool CanMoveLeft(Tetromino tetromino)
         {
@@ -568,8 +495,6 @@ namespace NewTetris
             return true;
         }
 
-
-
         private bool CanRotate(Tetromino tetromino)
         {
             foreach (var block in tetromino.Blocks)
@@ -587,17 +512,14 @@ namespace NewTetris
 
         private void LoadSounds()
         {
-            // Initialize WaveOut for each sound
             startButtonSound = new WaveOutEvent();
             gameplayMusic = new WaveOutEvent();
             collisionSound = new WaveOutEvent();
 
-            // Load MP3 files
             startButtonReader = new Mp3FileReader("Sounds/startbutton.mp3");
             gameplayMusicReader = new Mp3FileReader("Sounds/tetris.mp3");
             collisionSoundReader = new Mp3FileReader("Sounds/collision.mp3");
 
-            // Assign readers to the WaveOuts
             startButtonSound.Init(startButtonReader);
             gameplayMusic.Init(gameplayMusicReader);
             collisionSound.Init(collisionSoundReader);
@@ -605,7 +527,6 @@ namespace NewTetris
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            // Dispose all NAudio resources
             startButtonSound?.Dispose();
             gameplayMusic?.Dispose();
             collisionSound?.Dispose();
@@ -618,7 +539,7 @@ namespace NewTetris
 
         private void buttonViewHighScores_Click(object sender, EventArgs e)
         {
-            var highScoreForm = new HighScoreForm(0); // No current score, just view
+            var highScoreForm = new HighScoreForm(0);
             highScoreForm.ShowDialog();
         }
     }
