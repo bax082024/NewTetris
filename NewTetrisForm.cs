@@ -178,8 +178,6 @@ namespace NewTetris
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
-            Console.WriteLine($"Level: {level}, FallSpeed: {fallSpeed}ms");
-
             if (CanMoveDown(currentTetromino))
             {
                 currentTetromino.MoveDown();
@@ -189,27 +187,32 @@ namespace NewTetris
                 PlaceTetrominoOnGrid(currentTetromino);
                 ClearCompletedRows();
 
-                currentTetromino = GenerateRandomTetromino();
-                currentTetromino.Position = new Point(gridWidth / 2, 0);
-
                 if (IsGameOver())
                 {
-                    gameTimer.Stop();
-                    ShowGameOverDialog(); // Call the new custom Game Over dialog
+                    ShowGameOverDialog();
                     return;
                 }
+
+                currentTetromino = GenerateRandomTetromino();
+                currentTetromino.Position = new Point(gridWidth / 2, 0);
             }
 
             gamePanel.Invalidate(); // Redraw the game
         }
 
 
+
         private void ShowGameOverDialog()
         {
             // Pause background music
             gameplayMusic?.Stop();
+            gameTimer.Stop();
 
-            // Create a custom dialog
+            // Display the HighScoreForm first
+            var highScoreForm = new HighScoreForm(score);
+            highScoreForm.ShowDialog();
+
+            // Create a custom dialog after the high score form
             var result = MessageBox.Show(
                 $"Game Over! Your Score: {score}\n\nWould you like to play again?",
                 "Game Over",
@@ -226,13 +229,14 @@ namespace NewTetris
             }
         }
 
+
+
+
         private void RestartGame()
         {
-            // Reset game variables
+            // Reset game state
             score = 0;
-            level = 1;
-            fallSpeed = 500;
-            labelScore.Text = "Score: 0";
+            labelScore.Text = $"Score: {score}";
 
             // Clear the grid
             for (int y = 0; y < gridHeight; y++)
@@ -243,20 +247,15 @@ namespace NewTetris
                 }
             }
 
-            // Generate a new Tetromino
+            // Initialize a new Tetromino
             currentTetromino = GenerateRandomTetromino();
             currentTetromino.Position = new Point(gridWidth / 2, 0);
 
-            // Restart music
-            StartGameplayMusic();
-
-            // Restart the game timer
-            gameTimer.Interval = fallSpeed;
+            // Restart the timer and music
             gameTimer.Start();
-
-            // Redraw the game panel
-            gamePanel.Invalidate();
+            StartGameplayMusic();
         }
+
 
 
 
@@ -587,5 +586,10 @@ namespace NewTetris
             base.OnFormClosing(e);
         }
 
+        private void buttonViewHighScores_Click(object sender, EventArgs e)
+        {
+            var highScoreForm = new HighScoreForm(0); // No current score, just view
+            highScoreForm.ShowDialog();
+        }
     }
 }

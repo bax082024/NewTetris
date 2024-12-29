@@ -32,24 +32,29 @@
             label1 = new Label();
             buttonCancel = new Button();
             buttonAddName = new Button();
-            textBoxName = new TextBox();
-            dataGridView1 = new DataGridView();
+            textBoxScore = new TextBox();
+            dataGridViewHighScores = new DataGridView();
+            colName = new DataGridViewTextBoxColumn();
+            colPoints = new DataGridViewTextBoxColumn();
+            colLevel = new DataGridViewTextBoxColumn();
+            labelScore = new Label();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewHighScores).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.Transparent;
+            panel1.Controls.Add(labelScore);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(buttonCancel);
             panel1.Controls.Add(buttonAddName);
-            panel1.Controls.Add(textBoxName);
-            panel1.Controls.Add(dataGridView1);
+            panel1.Controls.Add(textBoxScore);
+            panel1.Controls.Add(dataGridViewHighScores);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(339, 510);
+            panel1.Size = new Size(339, 525);
             panel1.TabIndex = 0;
             // 
             // label1
@@ -65,7 +70,7 @@
             // buttonCancel
             // 
             buttonCancel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonCancel.Location = new Point(96, 457);
+            buttonCancel.Location = new Point(100, 472);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(140, 33);
             buttonCancel.TabIndex = 3;
@@ -76,56 +81,91 @@
             // buttonAddName
             // 
             buttonAddName.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonAddName.Location = new Point(96, 418);
+            buttonAddName.Location = new Point(100, 433);
             buttonAddName.Name = "buttonAddName";
             buttonAddName.Size = new Size(140, 33);
             buttonAddName.TabIndex = 2;
             buttonAddName.Text = "Add Name";
             buttonAddName.UseVisualStyleBackColor = true;
-            buttonAddName.Click += buttonAddName_Click;
+            buttonAddName.Click += buttonAdd_Click;
             // 
-            // textBoxName
+            // textBoxScore
             // 
-            textBoxName.Anchor = AnchorStyles.None;
-            textBoxName.BackColor = Color.LightGray;
-            textBoxName.Location = new Point(96, 384);
-            textBoxName.Name = "textBoxName";
-            textBoxName.PlaceholderText = "Insert Name";
-            textBoxName.Size = new Size(140, 23);
-            textBoxName.TabIndex = 1;
+            textBoxScore.Anchor = AnchorStyles.None;
+            textBoxScore.BackColor = Color.LightGray;
+            textBoxScore.Location = new Point(100, 406);
+            textBoxScore.Name = "textBoxScore";
+            textBoxScore.PlaceholderText = "Insert Name";
+            textBoxScore.Size = new Size(140, 23);
+            textBoxScore.TabIndex = 1;
             // 
-            // dataGridView1
+            // dataGridViewHighScores
             // 
-            dataGridView1.BackgroundColor = Color.DarkSlateGray;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(49, 55);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(240, 323);
-            dataGridView1.TabIndex = 0;
+            dataGridViewHighScores.BackgroundColor = Color.DarkSlateGray;
+            dataGridViewHighScores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewHighScores.Columns.AddRange(new DataGridViewColumn[] { colName, colPoints, colLevel });
+            dataGridViewHighScores.Location = new Point(35, 67);
+            dataGridViewHighScores.Name = "dataGridViewHighScores";
+            dataGridViewHighScores.RowHeadersVisible = false;
+            dataGridViewHighScores.Size = new Size(270, 323);
+            dataGridViewHighScores.TabIndex = 0;
+            // 
+            // colName
+            // 
+            colName.HeaderText = "Name";
+            colName.Name = "colName";
+            colName.Width = 170;
+            // 
+            // colPoints
+            // 
+            colPoints.HeaderText = "Points";
+            colPoints.Name = "colPoints";
+            colPoints.Width = 50;
+            // 
+            // colLevel
+            // 
+            colLevel.HeaderText = "Level";
+            colLevel.Name = "colLevel";
+            colLevel.Width = 50;
+            // 
+            // labelScore
+            // 
+            labelScore.AutoSize = true;
+            labelScore.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelScore.ForeColor = Color.OrangeRed;
+            labelScore.Location = new Point(84, 41);
+            labelScore.Name = "labelScore";
+            labelScore.Size = new Size(19, 20);
+            labelScore.TabIndex = 5;
+            labelScore.Text = "``";
             // 
             // HighScoreForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Info;
-            ClientSize = new Size(339, 510);
+            ClientSize = new Size(339, 525);
             Controls.Add(panel1);
             Name = "HighScoreForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HighScoreForm";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewHighScores).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel panel1;
-        private DataGridView dataGridView1;
+        private DataGridView dataGridViewHighScores;
         private Label label1;
         private Button buttonCancel;
         private Button buttonAddName;
-        private TextBox textBoxName;
+        private TextBox textBoxScore;
+        private DataGridViewTextBoxColumn colName;
+        private DataGridViewTextBoxColumn colPoints;
+        private DataGridViewTextBoxColumn colLevel;
+        private Label labelScore;
     }
 }

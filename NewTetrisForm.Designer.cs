@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            labelLevel = new Label();
             pictureBox8 = new PictureBox();
             pictureBox7 = new PictureBox();
             pictureBox6 = new PictureBox();
@@ -41,7 +42,7 @@
             labelScore = new Label();
             lblTitel = new Label();
             gamePanel = new Panel();
-            labelLevel = new Label();
+            buttonViewHighScores = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
@@ -56,6 +57,7 @@
             // panel1
             // 
             panel1.BackColor = Color.Transparent;
+            panel1.Controls.Add(buttonViewHighScores);
             panel1.Controls.Add(labelLevel);
             panel1.Controls.Add(pictureBox8);
             panel1.Controls.Add(pictureBox7);
@@ -74,6 +76,18 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(567, 748);
             panel1.TabIndex = 0;
+            // 
+            // labelLevel
+            // 
+            labelLevel.Anchor = AnchorStyles.None;
+            labelLevel.AutoSize = true;
+            labelLevel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelLevel.ForeColor = Color.Brown;
+            labelLevel.Location = new Point(309, 53);
+            labelLevel.Name = "labelLevel";
+            labelLevel.Size = new Size(71, 21);
+            labelLevel.TabIndex = 12;
+            labelLevel.Text = "Level : 1";
             // 
             // pictureBox8
             // 
@@ -210,17 +224,15 @@
             gamePanel.Size = new Size(303, 601);
             gamePanel.TabIndex = 0;
             // 
-            // labelLevel
+            // buttonViewHighScores
             // 
-            labelLevel.Anchor = AnchorStyles.None;
-            labelLevel.AutoSize = true;
-            labelLevel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelLevel.ForeColor = Color.Brown;
-            labelLevel.Location = new Point(309, 53);
-            labelLevel.Name = "labelLevel";
-            labelLevel.Size = new Size(71, 21);
-            labelLevel.TabIndex = 12;
-            labelLevel.Text = "Level : 1";
+            buttonViewHighScores.Location = new Point(480, 713);
+            buttonViewHighScores.Name = "buttonViewHighScores";
+            buttonViewHighScores.Size = new Size(75, 23);
+            buttonViewHighScores.TabIndex = 13;
+            buttonViewHighScores.Text = "button1";
+            buttonViewHighScores.UseVisualStyleBackColor = true;
+            buttonViewHighScores.Click += buttonViewHighScores_Click;
             // 
             // NewTetrisForm
             // 
@@ -263,5 +275,6 @@
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel toolStripStatusLabel1;
         private Label labelLevel;
+        private Button buttonViewHighScores;
     }
 }
