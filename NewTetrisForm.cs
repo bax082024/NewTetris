@@ -79,7 +79,7 @@ namespace NewTetris
         private Tetromino GenerateRandomTetromino()
         {
             int type = random.Next(0, 7);
-            return type switch
+            var tetromino = type switch
             {
                 0 => new Tetromino(new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(0, 1) }, Color.Cyan), // T
                 1 => new Tetromino(new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(-1, 1) }, Color.Blue), // L
@@ -90,7 +90,20 @@ namespace NewTetris
                 6 => new Tetromino(new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(-2, 0) }, Color.Purple), // Line
                 _ => throw new Exception("Invalid Tetromino type")
             };
+
+            // Set starting position
+            tetromino.Position = new Point(gridWidth / 2, 0);
+
+            // Validate starting position
+            if (!CanMoveDown(tetromino) && IsGameOver())
+            {
+                ShowGameOverDialog();
+            }
+
+            return tetromino;
         }
+
+
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
@@ -178,8 +191,6 @@ namespace NewTetris
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
-            Console.WriteLine($"Level: {level}, FallSpeed: {fallSpeed}ms");
-
             if (CanMoveDown(currentTetromino))
             {
                 currentTetromino.MoveDown();
@@ -189,18 +200,87 @@ namespace NewTetris
                 PlaceTetrominoOnGrid(currentTetromino);
                 ClearCompletedRows();
 
+                // Generate a new Tetromino
                 currentTetromino = GenerateRandomTetromino();
                 currentTetromino.Position = new Point(gridWidth / 2, 0);
 
+                // Check game over immediately after generating a new Tetromino
                 if (IsGameOver())
                 {
                     gameTimer.Stop();
-                    MessageBox.Show("Game Over! Score: " + score, "Tetris");
+                    ShowGameOverDialog();
+                    return;
                 }
             }
 
             gamePanel.Invalidate(); // Redraw the game
         }
+
+
+
+
+        private void ShowGameOverDialog()
+        {
+            // Stop background music and the game timer
+            gameplayMusic?.Stop();
+            gameTimer.Stop();
+
+            // Show the High Score form
+            var highScoreForm = new HighScoreForm(score);
+            highScoreForm.ShowDialog();
+
+            // Add a confirmation dialog if the user wants to play again
+            var result = MessageBox.Show(
+                "Do you want to play again?",
+                "Game Over",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                RestartGame();
+            }
+            else
+            {
+                Application.Exit();
+            }
+        }
+
+
+
+
+
+
+        private void RestartGame()
+        {
+            // Reset game state
+            score = 0;
+            level = 1;
+            fallSpeed = 500;
+            labelScore.Text = $"Score: {score}";
+            labelLevel.Text = $"Level: {level}";
+
+            // Clear the grid
+            for (int y = 0; y < gridHeight; y++)
+            {
+                for (int x = 0; x < gridWidth; x++)
+                {
+                    grid[y, x] = Color.Empty;
+                }
+            }
+
+            // Initialize a new Tetromino
+            currentTetromino = GenerateRandomTetromino();
+            currentTetromino.Position = new Point(gridWidth / 2, 0);
+
+            // Restart the timer and music
+            gameTimer.Start();
+            StartGameplayMusic();
+
+            // Redraw the panel
+            gamePanel.Invalidate();
+        }
+
 
 
 
@@ -448,6 +528,7 @@ namespace NewTetris
                 int x = currentTetromino.Position.X + block.X;
                 int y = currentTetromino.Position.Y + block.Y;
 
+                // Check if block overlaps with an existing block at the top
                 if (y >= 0 && grid[y, x] != Color.Empty)
                 {
                     return true;
@@ -455,6 +536,9 @@ namespace NewTetris
             }
             return false;
         }
+
+
+
 
 
 
@@ -532,5 +616,10 @@ namespace NewTetris
             base.OnFormClosing(e);
         }
 
+        private void buttonViewHighScores_Click(object sender, EventArgs e)
+        {
+            var highScoreForm = new HighScoreForm(0); // No current score, just view
+            highScoreForm.ShowDialog();
+        }
     }
 }
