@@ -32,6 +32,12 @@ namespace NewTetris
             return scores.OrderByDescending(s => s.Score).ToList();
         }
 
+        public static void SaveHighScores(List<HighScore> scores)
+        {
+            var lines = scores.Select(s => $"{s.Name},{s.Score}");
+            File.WriteAllLines(filePath, lines);
+        }
+
 
     }
 }
