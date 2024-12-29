@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace NewTetris
 {
@@ -19,6 +20,16 @@ namespace NewTetris
         public HighScoreForm()
         {
             InitializeComponent();
+            currentScore = score;
+            highScores = HighScore.LoadHighScores();
+            PopulateHighScoreGrid();
         }
+
+        
+
+
+
+
+
     }
 }
