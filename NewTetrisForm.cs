@@ -79,7 +79,7 @@ namespace NewTetris
         private Tetromino GenerateRandomTetromino()
         {
             int type = random.Next(0, 7);
-            return type switch
+            var tetromino = type switch
             {
                 0 => new Tetromino(new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(0, 1) }, Color.Cyan), // T
                 1 => new Tetromino(new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(-1, 1) }, Color.Blue), // L
@@ -90,7 +90,18 @@ namespace NewTetris
                 6 => new Tetromino(new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(-2, 0) }, Color.Purple), // Line
                 _ => throw new Exception("Invalid Tetromino type")
             };
+
+            // Validate starting position
+            tetromino.Position = new Point(gridWidth / 2, 0);
+            if (!CanMoveDown(tetromino) && IsGameOver())
+            {
+                // Game over immediately if the new Tetromino is invalid
+                ShowGameOverDialog();
+            }
+
+            return tetromino;
         }
+
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
@@ -204,30 +215,32 @@ namespace NewTetris
 
         private void ShowGameOverDialog()
         {
-            // Pause background music
+            // Stop background music and the game timer
             gameplayMusic?.Stop();
             gameTimer.Stop();
 
-            // Display the HighScoreForm first
+            // Show the High Score form
             var highScoreForm = new HighScoreForm(score);
             highScoreForm.ShowDialog();
 
-            // Create a custom dialog after the high score form
+            // Add a confirmation dialog if the user wants to play again
             var result = MessageBox.Show(
-                $"Game Over! Your Score: {score}\n\nWould you like to play again?",
+                "Do you want to play again?",
                 "Game Over",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
-                RestartGame(); // Restart the game if "Yes" is selected
+                RestartGame();
             }
             else
             {
-                Application.Exit(); // Exit the application if "No" is selected
+                Application.Exit();
             }
         }
+
+
 
 
 
@@ -236,7 +249,10 @@ namespace NewTetris
         {
             // Reset game state
             score = 0;
+            level = 1;
+            fallSpeed = 500;
             labelScore.Text = $"Score: {score}";
+            labelLevel.Text = $"Level: {level}";
 
             // Clear the grid
             for (int y = 0; y < gridHeight; y++)
@@ -254,7 +270,11 @@ namespace NewTetris
             // Restart the timer and music
             gameTimer.Start();
             StartGameplayMusic();
+
+            // Redraw the panel
+            gamePanel.Invalidate();
         }
+
 
 
 
@@ -502,6 +522,7 @@ namespace NewTetris
                 int x = currentTetromino.Position.X + block.X;
                 int y = currentTetromino.Position.Y + block.Y;
 
+                // Only check for blocks above the grid (y >= 0)
                 if (y >= 0 && grid[y, x] != Color.Empty)
                 {
                     return true;
@@ -509,6 +530,8 @@ namespace NewTetris
             }
             return false;
         }
+
+
 
 
 

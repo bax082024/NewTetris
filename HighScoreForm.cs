@@ -6,6 +6,8 @@ using System.Windows.Forms;
 
 namespace NewTetris
 {
+   
+
     public partial class HighScoreForm : Form
     {
         private List<HighScore> highScores;
@@ -14,6 +16,9 @@ namespace NewTetris
         public HighScoreForm(int score)
         {
             InitializeComponent();
+
+            labelScore.Text = $"Your Score: {score}";
+
             currentScore = score;
             highScores = HighScore.LoadHighScores();
             PopulateHighScoreList();
