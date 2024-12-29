@@ -10,6 +10,10 @@ using System.Windows.Forms;
 
 namespace NewTetris
 {
+    private List<HighScore> highScores;
+    private int currentScore;
+
+
     public partial class HighScoreForm : Form
     {
         public HighScoreForm()
