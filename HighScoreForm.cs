@@ -25,7 +25,14 @@ namespace NewTetris
             PopulateHighScoreGrid();
         }
 
-        
+        private void PopulateHighScoreGrid()
+        {
+            dataGridViewHighScores.Rows.Clear();
+            foreach (var highScore in highScores)
+            {
+                dataGridViewHighScores.Rows.Add(highScore.Name, highScore.Score);
+            }
+        }
 
 
 
