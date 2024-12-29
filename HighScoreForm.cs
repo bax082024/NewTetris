@@ -34,9 +34,24 @@ namespace NewTetris
             }
         }
 
+        private void buttonAddName_Click(object sender, EventArgs e)
+        {
+            var name = textBoxName.Text.Trim();
+            if (!string.IsNullOrEmpty(name))
+            {
+                highScores.Add(new HighScore { Name = name, Score = currentScore });
+                HighScore.SaveHighScores(highScores);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please enter your name!");
+            }
+        }
 
-
-
-
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
