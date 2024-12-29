@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            labelScore = new Label();
             label1 = new Label();
             buttonCancel = new Button();
             buttonAddName = new Button();
@@ -37,7 +38,6 @@
             colName = new DataGridViewTextBoxColumn();
             colPoints = new DataGridViewTextBoxColumn();
             colLevel = new DataGridViewTextBoxColumn();
-            labelScore = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewHighScores).BeginInit();
             SuspendLayout();
@@ -57,10 +57,22 @@
             panel1.Size = new Size(339, 525);
             panel1.TabIndex = 0;
             // 
+            // labelScore
+            // 
+            labelScore.AutoSize = true;
+            labelScore.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelScore.ForeColor = Color.OrangeRed;
+            labelScore.Location = new Point(84, 41);
+            labelScore.Name = "labelScore";
+            labelScore.Size = new Size(19, 20);
+            labelScore.TabIndex = 5;
+            labelScore.Text = "``";
+            // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Stencil", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.Brown;
             label1.Location = new Point(84, 9);
             label1.Name = "label1";
             label1.Size = new Size(174, 32);
@@ -69,24 +81,28 @@
             // 
             // buttonCancel
             // 
+            buttonCancel.BackColor = Color.LightBlue;
+            buttonCancel.FlatStyle = FlatStyle.Popup;
             buttonCancel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             buttonCancel.Location = new Point(100, 472);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(140, 33);
             buttonCancel.TabIndex = 3;
             buttonCancel.Text = "Cancel";
-            buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.UseVisualStyleBackColor = false;
             buttonCancel.Click += buttonCancel_Click;
             // 
             // buttonAddName
             // 
+            buttonAddName.BackColor = Color.LightBlue;
+            buttonAddName.FlatStyle = FlatStyle.Popup;
             buttonAddName.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             buttonAddName.Location = new Point(100, 433);
             buttonAddName.Name = "buttonAddName";
             buttonAddName.Size = new Size(140, 33);
             buttonAddName.TabIndex = 2;
             buttonAddName.Text = "Add Name";
-            buttonAddName.UseVisualStyleBackColor = true;
+            buttonAddName.UseVisualStyleBackColor = false;
             buttonAddName.Click += buttonAdd_Click;
             // 
             // textBoxScore
@@ -127,17 +143,6 @@
             colLevel.HeaderText = "Level";
             colLevel.Name = "colLevel";
             colLevel.Width = 50;
-            // 
-            // labelScore
-            // 
-            labelScore.AutoSize = true;
-            labelScore.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelScore.ForeColor = Color.OrangeRed;
-            labelScore.Location = new Point(84, 41);
-            labelScore.Name = "labelScore";
-            labelScore.Size = new Size(19, 20);
-            labelScore.TabIndex = 5;
-            labelScore.Text = "``";
             // 
             // HighScoreForm
             // 
