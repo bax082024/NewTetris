@@ -31,8 +31,8 @@
             panel1 = new Panel();
             dataGridView1 = new DataGridView();
             textBox1 = new TextBox();
-            button1 = new Button();
-            button2 = new Button();
+            buttonAddName = new Button();
+            buttonCancel = new Button();
             label1 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -42,8 +42,8 @@
             // 
             panel1.BackColor = Color.Transparent;
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(buttonCancel);
+            panel1.Controls.Add(buttonAddName);
             panel1.Controls.Add(textBox1);
             panel1.Controls.Add(dataGridView1);
             panel1.Dock = DockStyle.Fill;
@@ -70,23 +70,25 @@
             textBox1.Size = new Size(140, 23);
             textBox1.TabIndex = 1;
             // 
-            // button1
+            // buttonAddName
             // 
-            button1.Location = new Point(96, 418);
-            button1.Name = "button1";
-            button1.Size = new Size(140, 33);
-            button1.TabIndex = 2;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            buttonAddName.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonAddName.Location = new Point(96, 418);
+            buttonAddName.Name = "buttonAddName";
+            buttonAddName.Size = new Size(140, 33);
+            buttonAddName.TabIndex = 2;
+            buttonAddName.Text = "Add Name";
+            buttonAddName.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // buttonCancel
             // 
-            button2.Location = new Point(96, 457);
-            button2.Name = "button2";
-            button2.Size = new Size(140, 33);
-            button2.TabIndex = 3;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            buttonCancel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonCancel.Location = new Point(96, 457);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new Size(140, 33);
+            buttonCancel.TabIndex = 3;
+            buttonCancel.Text = "Cancel";
+            buttonCancel.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -119,8 +121,8 @@
         private Panel panel1;
         private DataGridView dataGridView1;
         private Label label1;
-        private Button button2;
-        private Button button1;
+        private Button buttonCancel;
+        private Button buttonAddName;
         private TextBox textBox1;
     }
 }
