@@ -91,16 +91,18 @@ namespace NewTetris
                 _ => throw new Exception("Invalid Tetromino type")
             };
 
-            // Validate starting position
+            // Set starting position
             tetromino.Position = new Point(gridWidth / 2, 0);
+
+            // Validate starting position
             if (!CanMoveDown(tetromino) && IsGameOver())
             {
-                // Game over immediately if the new Tetromino is invalid
                 ShowGameOverDialog();
             }
 
             return tetromino;
         }
+
 
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -198,18 +200,22 @@ namespace NewTetris
                 PlaceTetrominoOnGrid(currentTetromino);
                 ClearCompletedRows();
 
+                // Generate a new Tetromino
+                currentTetromino = GenerateRandomTetromino();
+                currentTetromino.Position = new Point(gridWidth / 2, 0);
+
+                // Check game over immediately after generating a new Tetromino
                 if (IsGameOver())
                 {
+                    gameTimer.Stop();
                     ShowGameOverDialog();
                     return;
                 }
-
-                currentTetromino = GenerateRandomTetromino();
-                currentTetromino.Position = new Point(gridWidth / 2, 0);
             }
 
             gamePanel.Invalidate(); // Redraw the game
         }
+
 
 
 
@@ -522,7 +528,7 @@ namespace NewTetris
                 int x = currentTetromino.Position.X + block.X;
                 int y = currentTetromino.Position.Y + block.Y;
 
-                // Only check for blocks above the grid (y >= 0)
+                // Check if block overlaps with an existing block at the top
                 if (y >= 0 && grid[y, x] != Color.Empty)
                 {
                     return true;
@@ -530,6 +536,7 @@ namespace NewTetris
             }
             return false;
         }
+
 
 
 
