@@ -62,14 +62,14 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(97, 376);
+            textBox1.Location = new Point(96, 384);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(140, 23);
             textBox1.TabIndex = 1;
             // 
             // button1
             // 
-            button1.Location = new Point(97, 410);
+            button1.Location = new Point(96, 418);
             button1.Name = "button1";
             button1.Size = new Size(140, 33);
             button1.TabIndex = 2;
@@ -78,7 +78,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(97, 449);
+            button2.Location = new Point(96, 457);
             button2.Name = "button2";
             button2.Size = new Size(140, 33);
             button2.TabIndex = 3;
@@ -88,11 +88,12 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(120, 15);
+            label1.Font = new Font("Stencil", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(84, 9);
             label1.Name = "label1";
-            label1.Size = new Size(38, 15);
+            label1.Size = new Size(174, 32);
             label1.TabIndex = 4;
-            label1.Text = "label1";
+            label1.Text = "HighScore";
             // 
             // HighScoreForm
             // 
