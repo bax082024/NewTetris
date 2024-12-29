@@ -34,3 +34,15 @@ A classic Tetris game built with C# and Windows Forms, featuring sound effects, 
 
 ---
 
+## Requirements
+
+- **Operating System**: Windows
+- **Development Environment**: Visual Studio (or any C# IDE)
+- **Dependencies**:
+  - [NAudio](https://github.com/naudio/NAudio) for sound effects.
+	
+---
+
+
+
+	
