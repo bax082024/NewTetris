@@ -226,6 +226,39 @@ namespace NewTetris
             }
         }
 
+        private void RestartGame()
+        {
+            // Reset game variables
+            score = 0;
+            level = 1;
+            fallSpeed = 500;
+            labelScore.Text = "Score: 0";
+
+            // Clear the grid
+            for (int y = 0; y < gridHeight; y++)
+            {
+                for (int x = 0; x < gridWidth; x++)
+                {
+                    grid[y, x] = Color.Empty;
+                }
+            }
+
+            // Generate a new Tetromino
+            currentTetromino = GenerateRandomTetromino();
+            currentTetromino.Position = new Point(gridWidth / 2, 0);
+
+            // Restart music
+            StartGameplayMusic();
+
+            // Restart the game timer
+            gameTimer.Interval = fallSpeed;
+            gameTimer.Start();
+
+            // Redraw the game panel
+            gamePanel.Invalidate();
+        }
+
+
 
 
 
