@@ -43,6 +43,16 @@ A classic Tetris game built with C# and Windows Forms, featuring sound effects, 
 	
 ---
 
+## Setup and Installation
 
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/tetris-game.git
+   ```
+2. Open the project in Visual Studio.
+3. Restore NuGet packages if needed.
+4. Build and run the project.
+
+--- 
 
 	
