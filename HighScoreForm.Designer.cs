@@ -55,15 +55,18 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(49, 73);
+            dataGridView1.Location = new Point(49, 55);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(240, 288);
+            dataGridView1.Size = new Size(240, 323);
             dataGridView1.TabIndex = 0;
             // 
             // textBox1
             // 
+            textBox1.Anchor = AnchorStyles.None;
+            textBox1.BackColor = Color.LightGray;
             textBox1.Location = new Point(96, 384);
             textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "Insert Name";
             textBox1.Size = new Size(140, 23);
             textBox1.TabIndex = 1;
             // 
