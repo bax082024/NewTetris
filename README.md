@@ -66,7 +66,7 @@ A classic Tetris game built with C# and Windows Forms, featuring sound effects, 
 ## Contact
 
 For questions or feedback, please contact:
-	- **bax082024@gmail.com**
+- **bax082024@gmail.com**
 
 ---
 	
