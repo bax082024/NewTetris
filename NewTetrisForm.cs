@@ -269,6 +269,7 @@ namespace NewTetris
         {
             Graphics g = e.Graphics;
 
+            // Draw the grid
             for (int y = 0; y < gridHeight; y++)
             {
                 for (int x = 0; x < gridWidth; x++)
@@ -281,6 +282,7 @@ namespace NewTetris
                 }
             }
 
+            // Draw the current Tetromino
             if (currentTetromino != null)
             {
                 foreach (var block in currentTetromino.Blocks)
@@ -292,6 +294,7 @@ namespace NewTetris
                 }
             }
         }
+
 
         private void NewTetrisForm_KeyDown(object sender, KeyEventArgs e)
         {
