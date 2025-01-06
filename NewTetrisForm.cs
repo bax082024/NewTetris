@@ -32,6 +32,11 @@ namespace NewTetris
             this.KeyPreview = true;
             this.KeyDown += NewTetrisForm_KeyDown;
 
+            this.AutoScaleMode = AutoScaleMode.Dpi;
+            this.Resize += NewTetrisForm_Resize;
+
+
+
             gameTimer.Tick += GameTimer_Tick;
             gamePanel.Paint += GamePanel_Paint;
 

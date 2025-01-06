@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            buttonViewHighScores = new Button();
             labelLevel = new Label();
             pictureBox8 = new PictureBox();
             pictureBox7 = new PictureBox();
@@ -42,7 +43,6 @@
             labelScore = new Label();
             lblTitel = new Label();
             gamePanel = new Panel();
-            buttonViewHighScores = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
@@ -76,6 +76,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(567, 748);
             panel1.TabIndex = 0;
+            // 
+            // buttonViewHighScores
+            // 
+            buttonViewHighScores.Location = new Point(480, 713);
+            buttonViewHighScores.Name = "buttonViewHighScores";
+            buttonViewHighScores.Size = new Size(75, 23);
+            buttonViewHighScores.TabIndex = 13;
+            buttonViewHighScores.Text = "HighScore";
+            buttonViewHighScores.UseVisualStyleBackColor = true;
+            buttonViewHighScores.Click += buttonViewHighScores_Click;
             // 
             // labelLevel
             // 
@@ -221,18 +231,8 @@
             gamePanel.BackColor = Color.LightGray;
             gamePanel.Location = new Point(131, 77);
             gamePanel.Name = "gamePanel";
-            gamePanel.Size = new Size(303, 601);
+            gamePanel.Size = new Size(301, 601);
             gamePanel.TabIndex = 0;
-            // 
-            // buttonViewHighScores
-            // 
-            buttonViewHighScores.Location = new Point(480, 713);
-            buttonViewHighScores.Name = "buttonViewHighScores";
-            buttonViewHighScores.Size = new Size(75, 23);
-            buttonViewHighScores.TabIndex = 13;
-            buttonViewHighScores.Text = "button1";
-            buttonViewHighScores.UseVisualStyleBackColor = true;
-            buttonViewHighScores.Click += buttonViewHighScores_Click;
             // 
             // NewTetrisForm
             // 
