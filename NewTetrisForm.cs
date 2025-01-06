@@ -547,5 +547,25 @@ namespace NewTetris
             var highScoreForm = new HighScoreForm(0);
             highScoreForm.ShowDialog();
         }
+
+        private void NewTetrisForm_Resize(object sender, EventArgs e)
+        {
+            // Calculate new cell size based on form size
+            int newCellSize = Math.Min(this.ClientSize.Width / gridWidth, this.ClientSize.Height / (gridHeight + 5)); // +5 for the UI below the grid
+
+            if (newCellSize < 10) return; // Prevent cells from becoming too small
+
+            cellSize = newCellSize;
+
+            // Resize and reposition the game panel
+            gamePanel.Width = cellSize * gridWidth;
+            gamePanel.Height = cellSize * gridHeight;
+            gamePanel.Left = (this.ClientSize.Width - gamePanel.Width) / 2;
+            gamePanel.Top = 50; // Adjust as needed
+
+            // Redraw the game
+            gamePanel.Invalidate();
+        }
+
     }
 }
