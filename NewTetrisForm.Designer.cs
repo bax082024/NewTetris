@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            btnExit = new Button();
+            buttonExit = new Button();
             buttonViewHighScores = new Button();
             labelLevel = new Label();
             pb6 = new PictureBox();
@@ -58,7 +58,7 @@
             // panel1
             // 
             panel1.BackColor = Color.Transparent;
-            panel1.Controls.Add(btnExit);
+            panel1.Controls.Add(buttonExit);
             panel1.Controls.Add(buttonViewHighScores);
             panel1.Controls.Add(labelLevel);
             panel1.Controls.Add(pb6);
@@ -79,23 +79,23 @@
             panel1.Size = new Size(567, 714);
             panel1.TabIndex = 0;
             // 
-            // btnExit
+            // buttonExit
             // 
-            btnExit.BackColor = Color.Silver;
-            btnExit.FlatStyle = FlatStyle.Popup;
-            btnExit.Location = new Point(480, 688);
-            btnExit.Name = "btnExit";
-            btnExit.Size = new Size(75, 23);
-            btnExit.TabIndex = 14;
-            btnExit.Text = "Exit";
-            btnExit.UseVisualStyleBackColor = false;
-            btnExit.Click += btnExit_Click;
+            buttonExit.BackColor = Color.Silver;
+            buttonExit.FlatStyle = FlatStyle.Popup;
+            buttonExit.Location = new Point(131, 667);
+            buttonExit.Name = "buttonExit";
+            buttonExit.Size = new Size(75, 23);
+            buttonExit.TabIndex = 14;
+            buttonExit.Text = "Exit";
+            buttonExit.UseVisualStyleBackColor = false;
+            buttonExit.Click += btnExit_Click;
             // 
             // buttonViewHighScores
             // 
             buttonViewHighScores.BackColor = Color.Silver;
             buttonViewHighScores.FlatStyle = FlatStyle.Popup;
-            buttonViewHighScores.Location = new Point(464, 130);
+            buttonViewHighScores.Location = new Point(468, 679);
             buttonViewHighScores.Name = "buttonViewHighScores";
             buttonViewHighScores.Size = new Size(75, 23);
             buttonViewHighScores.TabIndex = 13;
@@ -293,6 +293,6 @@
         private ToolStripStatusLabel toolStripStatusLabel1;
         private Label labelLevel;
         private Button buttonViewHighScores;
-        private Button btnExit;
+        private Button buttonExit;
     }
 }
