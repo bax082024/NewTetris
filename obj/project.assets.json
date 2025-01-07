@@ -493,11 +493,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\HjemmeKode\\C-Sharp\\MyProjects\\NewTetris\\NewTetris.csproj",
+      "projectUniqueName": "C:\\Users\\busch\\Documents\\projects\\NewTetris\\NewTetris.csproj",
       "projectName": "NewTetris",
-      "projectPath": "C:\\HjemmeKode\\C-Sharp\\MyProjects\\NewTetris\\NewTetris.csproj",
+      "projectPath": "C:\\Users\\busch\\Documents\\projects\\NewTetris\\NewTetris.csproj",
       "packagesPath": "C:\\Users\\busch\\.nuget\\packages\\",
-      "outputPath": "C:\\HjemmeKode\\C-Sharp\\MyProjects\\NewTetris\\obj\\",
+      "outputPath": "C:\\Users\\busch\\Documents\\projects\\NewTetris\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -529,9 +529,8 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.100"
+        "auditMode": "all"
+      }
     },
     "frameworks": {
       "net8.0-windows7.0": {
@@ -553,6 +552,28 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.Net.Sdk.Compilers.Toolset",
+            "version": "[9.0.100, 9.0.100]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.11, 8.0.11]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
@@ -561,7 +582,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
