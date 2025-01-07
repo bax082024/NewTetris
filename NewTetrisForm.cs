@@ -37,7 +37,7 @@ namespace NewTetris
 
             this.AutoScaleMode = AutoScaleMode.Dpi;
             this.Resize += NewTetrisForm_Resize;
-         
+
 
 
             grid = new Color[gridHeight, gridWidth];
@@ -146,7 +146,7 @@ namespace NewTetris
         }
 
 
-        
+
 
         private void StartGameplayMusic()
         {
@@ -548,7 +548,7 @@ namespace NewTetris
         private void NewTetrisForm_Resize(object sender, EventArgs e)
         {
             int newCellSize = Math.Min(
-                (this.ClientSize.Width - (cellSize * 6)) / gridWidth, 
+                (this.ClientSize.Width - (cellSize * 6)) / gridWidth,
                 (this.ClientSize.Height - (cellSize * 8)) / gridHeight
             );
             if (newCellSize < 10) return;
@@ -567,9 +567,9 @@ namespace NewTetris
             labelLevel.Left = gamePanel.Right - labelLevel.Width;
             labelLevel.Top = gamePanel.Top - (int)(1.5 * cellSize);
 
-            lblTitle.Font = new Font(lblTitle.Font.FontFamily, cellSize / 1.5f);
+            lblTitle.Font = new Font(lblTitle.Font.FontFamily, cellSize / 1.6f);
             lblTitle.Left = (this.ClientSize.Width - lblTitle.Width) / 2;
-            lblTitle.Top = gamePanel.Top - (int)(2.5 * cellSize);
+            lblTitle.Top = gamePanel.Top - (int)(3 * cellSize);
 
             buttonStart.Width = cellSize * 3;
             buttonStart.Height = cellSize;
@@ -609,8 +609,9 @@ namespace NewTetris
             pictureBox.Top = top;
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
 
-
-
+        }
     }
 }
