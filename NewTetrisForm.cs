@@ -603,21 +603,22 @@ namespace NewTetris
             buttonStart.Top = gamePanel.Bottom + cellSize;
 
             buttonViewHighScores.Width = cellSize * 2;
-            buttonViewHighScores.Height = cellSize / 2;
+            buttonViewHighScores.Height = cellSize * 1;
             buttonViewHighScores.Left = gamePanel.Right + (cellSize / 2);
             buttonViewHighScores.Top = buttonStart.Top;
 
 
             // Adjust picture boxes (tetromino previews)
-            AdjustPictureBox(pb1, gamePanel.Left - (cellSize * 2), gamePanel.Top);
-            AdjustPictureBox(pb2, gamePanel.Left - (cellSize * 2), gamePanel.Top + (cellSize * 5));
-            AdjustPictureBox(pb3, gamePanel.Left - (cellSize * 2), gamePanel.Top + (cellSize * 10));
-            AdjustPictureBox(pb4, gamePanel.Left - (cellSize * 2), gamePanel.Top + (cellSize * 15));
+            AdjustPictureBox(pb1, gamePanel.Left - (cellSize * 4), gamePanel.Top);
+            AdjustPictureBox(pb2, gamePanel.Left - (cellSize * 4), gamePanel.Top + (cellSize * 6));
+            AdjustPictureBox(pb3, gamePanel.Left - (cellSize * 4), gamePanel.Top + (cellSize * 12));
+            AdjustPictureBox(pb4, gamePanel.Left - (cellSize * 4), gamePanel.Top + (cellSize * 18));
 
-            AdjustPictureBox(pb5, gamePanel.Right + cellSize, gamePanel.Top);
-            AdjustPictureBox(pb6, gamePanel.Right + cellSize, gamePanel.Top + (cellSize * 5));
-            AdjustPictureBox(pb7, gamePanel.Right + cellSize, gamePanel.Top + (cellSize * 10));
-            AdjustPictureBox(pb8, gamePanel.Right + cellSize, gamePanel.Top + (cellSize * 15));
+            AdjustPictureBox(pb5, gamePanel.Right + (cellSize * 1), gamePanel.Top);
+            AdjustPictureBox(pb6, gamePanel.Right + (cellSize * 1), gamePanel.Top + (cellSize * 6));
+            AdjustPictureBox(pb7, gamePanel.Right + (cellSize * 1), gamePanel.Top + (cellSize * 12));
+            AdjustPictureBox(pb8, gamePanel.Right + (cellSize * 1), gamePanel.Top + (cellSize * 18));
+
 
 
             // Redraw game panel
@@ -626,11 +627,13 @@ namespace NewTetris
 
         private void AdjustPictureBox(PictureBox pictureBox, int left, int top)
         {
-            pictureBox.Width = cellSize;
-            pictureBox.Height = cellSize;
+            int pictureBoxScaleFactor = 2; // Scale factor for PictureBoxes
+            pictureBox.Width = cellSize * pictureBoxScaleFactor; // Scale size
+            pictureBox.Height = cellSize * pictureBoxScaleFactor;
             pictureBox.Left = left;
             pictureBox.Top = top;
         }
+
 
 
 

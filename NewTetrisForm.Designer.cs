@@ -83,7 +83,7 @@
             // 
             btnExit.BackColor = Color.Silver;
             btnExit.FlatStyle = FlatStyle.Popup;
-            btnExit.Location = new Point(480, 688);
+            btnExit.Location = new Point(22, 679);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(75, 23);
             btnExit.TabIndex = 14;
@@ -95,7 +95,7 @@
             // 
             buttonViewHighScores.BackColor = Color.Silver;
             buttonViewHighScores.FlatStyle = FlatStyle.Popup;
-            buttonViewHighScores.Location = new Point(464, 130);
+            buttonViewHighScores.Location = new Point(468, 679);
             buttonViewHighScores.Name = "buttonViewHighScores";
             buttonViewHighScores.Size = new Size(75, 23);
             buttonViewHighScores.TabIndex = 13;
