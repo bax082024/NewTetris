@@ -45,7 +45,7 @@ namespace NewTetris
 
         private void NewTetrisForm_Load(object sender, EventArgs e)
         {
-            NewTetrisForm_Resize(this, EventArgs.Empty); // Force resize logic
+            NewTetrisForm_Resize(this, EventArgs.Empty);
         }
 
 
@@ -146,11 +146,7 @@ namespace NewTetris
         }
 
 
-        private void OnCollision()
-        {
-            collisionSound.Stop();
-            collisionSound.Play();
-        }
+        
 
         private void StartGameplayMusic()
         {
@@ -162,17 +158,17 @@ namespace NewTetris
             };
         }
 
-        //protected override void OnPaintBackground(PaintEventArgs e)
-        //{
-        //    using (LinearGradientBrush gradientBrush = new LinearGradientBrush(
-        //        this.ClientRectangle,
-        //        Color.DarkBlue,  // Top color
-        //        Color.Purple,        // Bottom color
-        //        LinearGradientMode.Vertical))
-        //    {
-        //        e.Graphics.FillRectangle(gradientBrush, this.ClientRectangle);
-        //    }
-        //}
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            using (LinearGradientBrush gradientBrush = new LinearGradientBrush(
+                this.ClientRectangle,
+                Color.DarkBlue,  // Top color
+                Color.Purple,        // Bottom color
+                LinearGradientMode.Vertical))
+            {
+                e.Graphics.FillRectangle(gradientBrush, this.ClientRectangle);
+            }
+        }
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
@@ -357,10 +353,6 @@ namespace NewTetris
             gamePanel.Invalidate();
         }
 
-
-
-
-
         private void NewTetrisForm_KeyUp(object? sender, KeyEventArgs e)
         {
             // If needed
@@ -397,16 +389,6 @@ namespace NewTetris
 
             return true;
         }
-
-
-
-
-
-
-
-
-
-
 
         private void PlaceTetrominoOnGrid(Tetromino tetromino)
         {
@@ -560,27 +542,23 @@ namespace NewTetris
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+            gameplayMusic.Stop();
         }
 
         private void NewTetrisForm_Resize(object sender, EventArgs e)
         {
-            // Calculate new cell size based on the form's client size
             int newCellSize = Math.Min(
-                (this.ClientSize.Width - (cellSize * 6)) / gridWidth,  // Account for side margins
-                (this.ClientSize.Height - (cellSize * 8)) / gridHeight // Account for top/bottom margins
+                (this.ClientSize.Width - (cellSize * 6)) / gridWidth, 
+                (this.ClientSize.Height - (cellSize * 8)) / gridHeight
             );
-            if (newCellSize < 10) return; // Prevent extremely small cells
+            if (newCellSize < 10) return;
             cellSize = newCellSize;
 
-
-            // Resize the game panel
             gamePanel.Width = cellSize * gridWidth;
             gamePanel.Height = cellSize * gridHeight;
             gamePanel.Left = (this.ClientSize.Width - gamePanel.Width) / 2;
             gamePanel.Top = (this.ClientSize.Height - gamePanel.Height) / 2;
 
-
-            // Adjust labels
             labelScore.Font = new Font(labelScore.Font.FontFamily, cellSize / 2);
             labelScore.Left = gamePanel.Left;
             labelScore.Top = gamePanel.Top - (int)(1.5 * cellSize);
@@ -589,26 +567,25 @@ namespace NewTetris
             labelLevel.Left = gamePanel.Right - labelLevel.Width;
             labelLevel.Top = gamePanel.Top - (int)(1.5 * cellSize);
 
-
-            // Adjust title label (if exists)
             lblTitle.Font = new Font(lblTitle.Font.FontFamily, cellSize / 1.5f);
             lblTitle.Left = (this.ClientSize.Width - lblTitle.Width) / 2;
             lblTitle.Top = gamePanel.Top - (int)(2.5 * cellSize);
 
-
-            // Adjust start button
             buttonStart.Width = cellSize * 3;
             buttonStart.Height = cellSize;
             buttonStart.Left = (this.ClientSize.Width - buttonStart.Width) / 2;
             buttonStart.Top = gamePanel.Bottom + cellSize;
 
             buttonViewHighScores.Width = cellSize * 2;
-            buttonViewHighScores.Height = cellSize * 1;
+            buttonViewHighScores.Height = cellSize;
             buttonViewHighScores.Left = gamePanel.Right + (cellSize / 2);
             buttonViewHighScores.Top = buttonStart.Top;
 
+            buttonExit.Width = cellSize * 2;
+            buttonExit.Height = cellSize;
+            buttonExit.Left = gamePanel.Left - buttonExit.Width - (cellSize / 2);
+            buttonExit.Top = buttonStart.Top;
 
-            // Adjust picture boxes (tetromino previews)
             AdjustPictureBox(pb1, gamePanel.Left - (cellSize * 4), gamePanel.Top);
             AdjustPictureBox(pb2, gamePanel.Left - (cellSize * 4), gamePanel.Top + (cellSize * 6));
             AdjustPictureBox(pb3, gamePanel.Left - (cellSize * 4), gamePanel.Top + (cellSize * 12));
@@ -619,16 +596,14 @@ namespace NewTetris
             AdjustPictureBox(pb7, gamePanel.Right + (cellSize * 1), gamePanel.Top + (cellSize * 12));
             AdjustPictureBox(pb8, gamePanel.Right + (cellSize * 1), gamePanel.Top + (cellSize * 18));
 
-
-
-            // Redraw game panel
             gamePanel.Invalidate();
         }
 
+
         private void AdjustPictureBox(PictureBox pictureBox, int left, int top)
         {
-            int pictureBoxScaleFactor = 2; // Scale factor for PictureBoxes
-            pictureBox.Width = cellSize * pictureBoxScaleFactor; // Scale size
+            int pictureBoxScaleFactor = 2;
+            pictureBox.Width = cellSize * pictureBoxScaleFactor;
             pictureBox.Height = cellSize * pictureBoxScaleFactor;
             pictureBox.Left = left;
             pictureBox.Top = top;
