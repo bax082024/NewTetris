@@ -542,5 +542,10 @@ namespace NewTetris
             var highScoreForm = new HighScoreForm(0);
             highScoreForm.ShowDialog();
         }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            buttonViewHighScores = new Button();
             labelLevel = new Label();
             pictureBox8 = new PictureBox();
             pictureBox7 = new PictureBox();
@@ -42,7 +43,7 @@
             labelScore = new Label();
             lblTitel = new Label();
             gamePanel = new Panel();
-            buttonViewHighScores = new Button();
+            btnExit = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
@@ -57,6 +58,7 @@
             // panel1
             // 
             panel1.BackColor = Color.Transparent;
+            panel1.Controls.Add(btnExit);
             panel1.Controls.Add(buttonViewHighScores);
             panel1.Controls.Add(labelLevel);
             panel1.Controls.Add(pictureBox8);
@@ -74,8 +76,18 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(567, 748);
+            panel1.Size = new Size(567, 714);
             panel1.TabIndex = 0;
+            // 
+            // buttonViewHighScores
+            // 
+            buttonViewHighScores.Location = new Point(464, 130);
+            buttonViewHighScores.Name = "buttonViewHighScores";
+            buttonViewHighScores.Size = new Size(75, 23);
+            buttonViewHighScores.TabIndex = 13;
+            buttonViewHighScores.Text = "Highscore";
+            buttonViewHighScores.UseVisualStyleBackColor = true;
+            buttonViewHighScores.Click += buttonViewHighScores_Click;
             // 
             // labelLevel
             // 
@@ -83,7 +95,7 @@
             labelLevel.AutoSize = true;
             labelLevel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelLevel.ForeColor = Color.Brown;
-            labelLevel.Location = new Point(309, 53);
+            labelLevel.Location = new Point(309, 36);
             labelLevel.Name = "labelLevel";
             labelLevel.Size = new Size(71, 21);
             labelLevel.TabIndex = 12;
@@ -94,7 +106,7 @@
             pictureBox8.Anchor = AnchorStyles.None;
             pictureBox8.BackgroundImage = Properties.Resources._4;
             pictureBox8.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox8.Location = new Point(464, 208);
+            pictureBox8.Location = new Point(464, 191);
             pictureBox8.Name = "pictureBox8";
             pictureBox8.Size = new Size(64, 52);
             pictureBox8.TabIndex = 11;
@@ -105,7 +117,7 @@
             pictureBox7.Anchor = AnchorStyles.None;
             pictureBox7.BackgroundImage = Properties.Resources._4;
             pictureBox7.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox7.Location = new Point(22, 626);
+            pictureBox7.Location = new Point(22, 609);
             pictureBox7.Name = "pictureBox7";
             pictureBox7.Size = new Size(64, 52);
             pictureBox7.TabIndex = 10;
@@ -116,7 +128,7 @@
             pictureBox6.Anchor = AnchorStyles.None;
             pictureBox6.BackgroundImage = Properties.Resources._3;
             pictureBox6.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox6.Location = new Point(22, 229);
+            pictureBox6.Location = new Point(22, 212);
             pictureBox6.Name = "pictureBox6";
             pictureBox6.Size = new Size(79, 69);
             pictureBox6.TabIndex = 9;
@@ -127,7 +139,7 @@
             pictureBox5.Anchor = AnchorStyles.None;
             pictureBox5.BackgroundImage = Properties.Resources._3;
             pictureBox5.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox5.Location = new Point(464, 626);
+            pictureBox5.Location = new Point(464, 609);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(79, 69);
             pictureBox5.TabIndex = 8;
@@ -138,7 +150,7 @@
             pictureBox4.Anchor = AnchorStyles.None;
             pictureBox4.BackgroundImage = Properties.Resources._2;
             pictureBox4.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox4.Location = new Point(464, 413);
+            pictureBox4.Location = new Point(464, 396);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(79, 69);
             pictureBox4.TabIndex = 7;
@@ -149,7 +161,7 @@
             pictureBox3.Anchor = AnchorStyles.None;
             pictureBox3.BackgroundImage = Properties.Resources._2;
             pictureBox3.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox3.Location = new Point(22, 14);
+            pictureBox3.Location = new Point(22, 3);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(79, 69);
             pictureBox3.TabIndex = 6;
@@ -160,7 +172,7 @@
             pictureBox2.Anchor = AnchorStyles.None;
             pictureBox2.BackgroundImage = Properties.Resources._1;
             pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox2.Location = new Point(22, 450);
+            pictureBox2.Location = new Point(22, 433);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(79, 69);
             pictureBox2.TabIndex = 5;
@@ -171,7 +183,7 @@
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.BackgroundImage = Properties.Resources._1;
             pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox1.Location = new Point(464, 14);
+            pictureBox1.Location = new Point(464, 3);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(79, 69);
             pictureBox1.TabIndex = 4;
@@ -183,7 +195,7 @@
             buttonStart.BackColor = Color.LightBlue;
             buttonStart.FlatStyle = FlatStyle.Popup;
             buttonStart.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonStart.Location = new Point(210, 686);
+            buttonStart.Location = new Point(210, 669);
             buttonStart.Name = "buttonStart";
             buttonStart.Size = new Size(135, 37);
             buttonStart.TabIndex = 3;
@@ -197,7 +209,7 @@
             labelScore.AutoSize = true;
             labelScore.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelScore.ForeColor = Color.Brown;
-            labelScore.Location = new Point(161, 53);
+            labelScore.Location = new Point(161, 36);
             labelScore.Name = "labelScore";
             labelScore.Size = new Size(73, 21);
             labelScore.TabIndex = 2;
@@ -207,11 +219,11 @@
             // 
             lblTitel.Anchor = AnchorStyles.None;
             lblTitel.AutoSize = true;
-            lblTitel.Font = new Font("Stencil", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitel.Font = new Font("Stencil", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitel.ForeColor = Color.Brown;
-            lblTitel.Location = new Point(185, 5);
+            lblTitel.Location = new Point(210, -3);
             lblTitel.Name = "lblTitel";
-            lblTitel.Size = new Size(197, 57);
+            lblTitel.Size = new Size(153, 44);
             lblTitel.TabIndex = 1;
             lblTitel.Text = "TETRIS";
             // 
@@ -219,27 +231,27 @@
             // 
             gamePanel.Anchor = AnchorStyles.None;
             gamePanel.BackColor = Color.LightGray;
-            gamePanel.Location = new Point(131, 77);
+            gamePanel.Location = new Point(131, 60);
             gamePanel.Name = "gamePanel";
             gamePanel.Size = new Size(303, 601);
             gamePanel.TabIndex = 0;
             // 
-            // buttonViewHighScores
+            // btnExit
             // 
-            buttonViewHighScores.Location = new Point(480, 713);
-            buttonViewHighScores.Name = "buttonViewHighScores";
-            buttonViewHighScores.Size = new Size(75, 23);
-            buttonViewHighScores.TabIndex = 13;
-            buttonViewHighScores.Text = "button1";
-            buttonViewHighScores.UseVisualStyleBackColor = true;
-            buttonViewHighScores.Click += buttonViewHighScores_Click;
+            btnExit.Location = new Point(480, 688);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new Size(75, 23);
+            btnExit.TabIndex = 14;
+            btnExit.Text = "Exit";
+            btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
             // 
             // NewTetrisForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Info;
-            ClientSize = new Size(567, 748);
+            ClientSize = new Size(567, 714);
             Controls.Add(panel1);
             Name = "NewTetrisForm";
             StartPosition = FormStartPosition.CenterScreen;
@@ -276,5 +288,6 @@
         private ToolStripStatusLabel toolStripStatusLabel1;
         private Label labelLevel;
         private Button buttonViewHighScores;
+        private Button btnExit;
     }
 }
